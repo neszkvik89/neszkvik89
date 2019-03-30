@@ -1,0 +1,125 @@
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+html,body {
+margin:0;
+padding:0;
+}
+
+body {
+    font-family: consolas;
+}
+
+header {
+    background: #333333;
+   }
+
+.logo {
+    float: left;
+    padding: 10px 0;
+}
+
+header::after {
+    content: '';
+    display: table;
+    clear:both;
+}
+
+nav {
+    float: right;
+}
+
+nav ul {
+    margin: 0;
+    list-style: none;
+    color: #ff0099;
+}
+
+nav li {
+    display: inline-block;
+    margin: 0 15px;
+    padding: 15px 0;
+    
+}
+
+nav ul li a {
+    
+    color: #ff0099;
+    font-family: courier;
+    text-decoration-style: bold;
+}
+
+#personid {
+    color: #ff0099;
+    font-size: 34px;
+}
+
+h1, h2, h3, p {
+    margin-left: 150px;
+    margin-right: 150px;
+}
+
+h1, h2, h3 {
+    font-family: 'Sree Krushnadevaraya', serif;
+}
+
+h1 {
+    margin-top: 70px;
+    margin-bottom: 10px;
+    font-size: 50px;
+}
+
+h2 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+h3 {
+    font-size: 32px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    
+}
+
+.subheader {
+    text-align: center;
+    font-size: 40px;
+    padding-bottom: 25px;
+}
+
+#introduction {
+    font-size: 20px;
+    padding-bottom: 50px;
+    line-height: 25px;
+}
+
+#separator {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.definitions {
+    margin-top: 0;
+    margin-bottom: 0;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
