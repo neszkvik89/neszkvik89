@@ -1,0 +1,19 @@
+.container {background-color: darkturquoise;}
+.container {padding: 12px 0px;}
+h1 {text-align: center;
+    text-transform: uppercase;}
+h2 {padding: 10px 0px;}
+body {  margin: 0px 200px;
+        font-family: sans-serif;}
+p {margin: 0px;}
+.content {  border: 2px solid green;
+            text-align: justify;
+            padding: 10px;
+            margin: 0px 500px 0px 0px;}
+textarea {  resize: none;}
+.button {   border-radius: 30%;
+            background-color: cornsilk;}
+
+
+
+
