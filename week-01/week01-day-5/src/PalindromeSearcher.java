@@ -12,7 +12,8 @@ public class PalindromeSearcher {
         int posCounter = 0;
         int midDif = 1;
 
-        for (int j = theWord.length() -4; j > 0; j--) {
+
+ /*       for (int j = theWord.length() - 4; j > 0; j--) {
             for (int i = theWord.length() - 2; i > 1; i--) {
                 if (theWord.charAt(i - midDif) == theWord.charAt(i + midDif)) {
                     String aPalindrome = "";
@@ -28,22 +29,30 @@ public class PalindromeSearcher {
             System.out.println("legkülső kör???");
 
         }
-
-        System.out.println(palindromes[0]);
-        System.out.println(palindromes[1]);
-        System.out.println(palindromes[2]);
-        System.out.println(palindromes[3]);
-        System.out.println(palindromes[4]);
-        System.out.println(palindromes[5]);
-        System.out.println(palindromes[6]);
-        System.out.println(palindromes[7]);
-        System.out.println(palindromes[8]);
-        System.out.println(palindromes[9]);
-        System.out.println(palindromes[10]);
-        System.out.println(palindromes[11]);
+*/
 
 
 
+        for (int j = theWord.length() - 2; j > 1; j--) {
+            for (int i = theWord.length() - 2; i > 1; i--) {
+                if (theWord.charAt(i) == theWord.charAt(i - 1)) {
+
+                    System.out.println("Two similar characters detected next to each other");
+                    for (int k = theWord.length() - j - 1; k > theWord.length() / 2; k--) {
+                        if (theWord.charAt(i + k) == theWord.charAt(i - k)) {
+                            String anEvenPalindrome = "";
+                            anEvenPalindrome = anEvenPalindrome + theWord.substring(i - k, i + k + 1);
+                            palindromes[posCounter] = anEvenPalindrome;
+                            posCounter++;
+                            System.out.println(anEvenPalindrome + "was found");
+                        }
+                        else break;
+                    }
+                }
+            }
+            System.out.println("legkülső kör???");
+
+        }
 
     }
 }
