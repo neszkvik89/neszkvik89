@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="141c8ca2-00a5-49e5-8e7f-51121439f038" name="Default Changelist" comment="" />
+    <list default="true" id="141c8ca2-00a5-49e5-8e7f-51121439f038" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,7 +58,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GuessMyNumber.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
+            <state relative-caret-position="912">
               <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -77,7 +79,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ArmstrongNumber.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
+            <state relative-caret-position="717">
               <caret line="36" column="38" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
             </state>
           </provider>
@@ -121,7 +123,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -138,7 +140,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -193,11 +195,11 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.PalindromeSearcher" />
-      <item itemvalue="Application.ParametricAverage" />
+      <item itemvalue="Application.ArmstrongNumber" />
       <item itemvalue="Application.GuessMyNumber" />
       <item itemvalue="Application.JosephusProblem" />
-      <item itemvalue="Application.ArmstrongNumber" />
+      <item itemvalue="Application.PalindromeSearcher" />
+      <item itemvalue="Application.ParametricAverage" />
     </list>
     <recent_temporary>
       <list>
@@ -225,7 +227,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.101875" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.101875" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -314,7 +316,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GuessMyNumber.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
+        <state relative-caret-position="912">
           <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -331,7 +333,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ArmstrongNumber.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
+        <state relative-caret-position="717">
           <caret line="36" column="38" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
         </state>
       </provider>
