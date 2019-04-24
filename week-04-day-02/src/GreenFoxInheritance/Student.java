@@ -1,6 +1,6 @@
 package GreenFoxInheritance;
 
-public class Student extends Person{
+public class Student extends Person implements Cloneable {
 
     String previousOrganization = "The School of Life";
     int skippedDays = 0;
@@ -11,6 +11,16 @@ public class Student extends Person{
     public Student(String name, int age, String gender, String previousOrganization) {
         super(name, age, gender);
         this.previousOrganization = previousOrganization;
+    }
+
+    public Student clone () {
+        try {
+            Student johnTheClone = (Student) super.clone();
+            return johnTheClone;
+        } catch (CloneNotSupportedException e)
+        {
+            throw new Error();
+        }
     }
 
     public void getGoal() {

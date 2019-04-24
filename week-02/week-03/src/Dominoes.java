@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Dominoes {
@@ -7,16 +8,11 @@ public class Dominoes {
         // You have the list of Dominoes
         // Order them into one snake where the adjacent dominoes have the same numbers on their adjacent sides
         // eg: [2, 4], [4, 3], [3, 5] ...
-        List<Domino> sortedDominoes = new ArrayList<>();
-        sortedDominoes.add(dominoes.get(0));
-        for (int j = 1; j < dominoes.size(); j++) {
-            for (int i = 1; i < dominoes.size(); i++) {
-                if (dominoes.get(i).getLeftSide() == sortedDominoes.get(j - 1).getRightSide()) {
-                    sortedDominoes.add(dominoes.get(i));
-                }
-            }
+        Collections.sort(dominoes);
+        for (Domino domino :
+                dominoes) {
+            System.out.println(domino);
         }
-        System.out.println(sortedDominoes);
     }
 
     static ArrayList<Domino> initializeDominoes() {

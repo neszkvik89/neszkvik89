@@ -22,8 +22,13 @@ public class GreenFoxInheritance {
         people.add(sponsor);
         Sponsor elon = new Sponsor("Elon Musk", 46, "male", "SpaceX");
         people.add(elon);
-
         student.skipDays(3);
+
+        Student johnTheClone = john.clone();
+
+        johnTheClone.getGoal();
+        System.out.println(johnTheClone.skippedDays);
+        System.out.println(johnTheClone.previousOrganization);
 
         for (int i = 0; i < 5; i++) {
             elon.hire();
