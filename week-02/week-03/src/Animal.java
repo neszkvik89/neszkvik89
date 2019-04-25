@@ -1,15 +1,27 @@
 public class Animal {
 
-    public Animal(int hunger) {
+    private int hunger = 50;
+    private int thirst = 50;
+
+    public int getHunger() {
+        return hunger;
+    }
+
+    public void setHunger(int hunger) {
         this.hunger = hunger;
     }
 
-    public static void main(String[] args) {
-
+    public int getThirst() {
+        return thirst;
     }
 
-    int hunger = 50;
-    int thirst = 50;
+    public void setThirst(int thirst) {
+        this.thirst = thirst;
+    }
+
+    public Animal(int hunger) {
+        this.hunger = hunger;
+    }
 
     public void eat (){
         hunger--;

@@ -33,8 +33,8 @@ public class Farm {
         int indexOfTarget = 0;
         int maxHunger = Integer.MAX_VALUE;
         for (i = 0; i < myAnimals.size(); i++) {
-            if (myAnimals.get(i).hunger < maxHunger) {
-                maxHunger = myAnimals.get(i).hunger;
+            if (myAnimals.get(i).getHunger() < maxHunger) {
+                maxHunger = myAnimals.get(i).getHunger();
                 indexOfTarget = i;
             }
         }
