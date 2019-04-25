@@ -1,7 +1,7 @@
 public class Sharpie {
 
-    String color = "";
-    float width = 0.0F;
+    private String color = "";
+    private float width = 0.0F;
 
     public float getInkAmount() {
         return inkAmount;
