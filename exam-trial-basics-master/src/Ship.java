@@ -58,17 +58,15 @@ public class Ship {
   public static void main(String[] args) {
     Pirate joe = new Pirate("Joe", false, true);
     Pirate bob = new Pirate("Bob", true, false);
-    Pirate tim = new Pirate("Joe", false, false);
-    Pirate tom = new Pirate("Joe", true, false);
-    tom.setGold(44);
+    Pirate tim = new Pirate("Tim", false, false);
+    Pirate tom = new Pirate("Tom", true, false);
+    tom.setGold(40);
     Ship myShip = new Ship();
     myShip.addNewPirate(joe);
     myShip.addNewPirate(bob);
     myShip.addNewPirate(tim);
     myShip.addNewPirate(tom);
-    myShip.getPoorPirates();
-    myShip.prepareForBattle();
-    System.out.println(myShip.myPirates);
+    System.out.println(myShip.getPoorPirates());
 
   }
 

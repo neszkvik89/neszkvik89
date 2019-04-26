@@ -51,17 +51,17 @@ public class Pirate {
     this.woodenLeg = woodenLeg;
   }
 
-  public void work () {
+  public void work() {
     if (this.isCaptain()) {
       this.setGold(this.getGold() + 10);
       this.setHp(this.getHp() - 5);
     } else {
       this.setGold(this.getGold() + 1);
-      this.setHp(this.getHp() -1);
+      this.setHp(this.getHp() - 1);
     }
   }
 
-  public void party () {
+  public void party() {
     if (this.isCaptain()) {
       this.setHp(this.getHp() + 10);
     } else {

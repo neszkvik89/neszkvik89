@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class MostCommonCharacters {
-  
+
   public static void main(String[] args) {
     MostCommonCharacters myTest = new MostCommonCharacters();
     myTest.findMostCommon("src/text.txt");
@@ -53,10 +53,7 @@ public class MostCommonCharacters {
           }
         }
       }
-      writer.append("\n");
-      writer.append(mostCom);
-      writer.append(' ');
-      writer.append(mostCom2);
+      writer.append("\n" + mostCom + ' ' + mostCom2);
       writer.close();
     } catch (Exception e) {
       System.out.println("File does not exist!");
