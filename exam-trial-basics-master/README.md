@@ -120,8 +120,11 @@ Write a program which can store pirates in a ship.
 
 ### How can you generate a random number?
 
-*type your answer here*
+*Using the Math.random() method as the first step which gives a double value between 0.00 and 1.00. If it is a
+number between 0-100 then I have to x100 and cast the result to an int type*
 
 ### What is a ternary operator? How does it work?
 
-*type your answer here*
+*Basically another syntax for the if-else structure that is more readable and results in cleaner code
+(vizsgálandó állítás, utána ? --->) booleanExpression ? (true esetén lefut --->) expression1 : (false esetén lefut --->) expression2
+*

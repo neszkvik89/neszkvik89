@@ -1,47 +1,68 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class MostCommonCharacters {
 
   HashMap<Character, Integer> letterMap = new HashMap<>();
+  HashMap<Integer, Character> inverseMap = new HashMap<>();
 
-  public String findMostCommon(String path) {
+  public void findMostCommon(String path) {
 
     String toReturn = "";
+    int maxOcc = 0;
+    int maxOcc2 = 0;
+    String mostCom = "";
+    String mostCom2 = "";
 
     try {
       Path filePath = Paths.get("src/text.txt");
       List<String> lines = Files.readAllLines(filePath);
-      char mostFreq = 0;
-      char mostFreq2 = 0;
 
       for (int i = 0; i < lines.size(); i++) {
         for (int j = 0; j < lines.get(i).length(); j++) {
           if (letterMap.containsKey(lines.get(i).charAt(j))) {
             letterMap.replace(lines.get(i).charAt(j), letterMap.get(lines.get(i).charAt(j)) + 1);
-            if (letterMap.get(lines.get(i).charAt(j)) + 1 > mostFreq) {
-              mostFreq = lines.get(i).charAt(j);
-            } else if (letterMap.get(lines.get(i).charAt(j)) + 1 > mostFreq2) {
-              mostFreq2 = lines.get(i).charAt(j);
+            if (letterMap.get(lines.get(i).charAt(j)) > maxOcc) {
+              maxOcc = letterMap.get(lines.get(i).charAt(j));
+            } else if (letterMap.get(lines.get(i).charAt(j)) > maxOcc2) {
+              maxOcc2 = letterMap.get(lines.get(i).charAt(j));
             }
           } else {
             letterMap.put((lines.get(i).charAt(j)), 1);
           }
         }
       }
-      toReturn = mostFreq + " : " + letterMap.get(mostFreq) + ", " + mostFreq2 + " : " + letterMap.get(mostFreq2);
-    } catch (Exception e) {
-      System.out.println("Uh-oh, could not read the file!");
-    }
-    return toReturn;
-  }
 
+      List<Integer> occurances = new ArrayList<>(letterMap.values());
+      Collections.sort(occurances);
+
+      for (Map.Entry<Character, Integer> entry: letterMap.entrySet()) {
+        if (letterMap.get(entry.getKey()) == occurances.get(occurances.size() - 1)
+            || letterMap.get(entry.getKey()) == occurances.get(occurances.size() - 2)) {
+          if (mostCom == "") {
+            mostCom = mostCom + (entry);
+          } else {
+            mostCom2 = mostCom2 + (entry);
+          }
+        }
+      }
+      BufferedWriter writer = new BufferedWriter(new FileWriter(path, true));
+      writer.append(' ');
+      writer.append(mostCom);
+      writer.append(mostCom2);
+      writer.close();
+    }
+      catch (Exception e) {
+      System.out.println("File does not exist!");
+    }
+  }
 
   public static void main(String[] args) {
     MostCommonCharacters myTest = new MostCommonCharacters();
-    System.out.println(myTest.findMostCommon("text.txt"));
+    myTest.findMostCommon("text.txt");
   }
 }
