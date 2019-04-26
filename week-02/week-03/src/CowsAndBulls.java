@@ -17,7 +17,6 @@ public class CowsAndBulls {
     cowNr = 0;
     bullNr = 0;
     System.out.println("Please give me (another) four-digit number");
-    System.out.println("Cheat : " + nrToGuess);
   }
 
   public boolean isNumber(String string) {
