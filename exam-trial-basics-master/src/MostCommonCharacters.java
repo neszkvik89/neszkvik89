@@ -6,13 +6,15 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class MostCommonCharacters {
-
-  HashMap<Character, Integer> letterMap = new HashMap<>();
-  HashMap<Integer, Character> inverseMap = new HashMap<>();
+  
+  public static void main(String[] args) {
+    MostCommonCharacters myTest = new MostCommonCharacters();
+    myTest.findMostCommon("src/text.txt");
+  }
 
   public void findMostCommon(String path) {
 
-    String toReturn = "";
+    HashMap<Character, Integer> letterMap = new HashMap<>();
     int maxOcc = 0;
     int maxOcc2 = 0;
     String mostCom = "";
@@ -21,6 +23,7 @@ public class MostCommonCharacters {
     try {
       Path filePath = Paths.get("src/text.txt");
       List<String> lines = Files.readAllLines(filePath);
+      BufferedWriter writer = new BufferedWriter(new FileWriter(path, true));
 
       for (int i = 0; i < lines.size(); i++) {
         for (int j = 0; j < lines.get(i).length(); j++) {
@@ -40,7 +43,7 @@ public class MostCommonCharacters {
       List<Integer> occurances = new ArrayList<>(letterMap.values());
       Collections.sort(occurances);
 
-      for (Map.Entry<Character, Integer> entry: letterMap.entrySet()) {
+      for (Map.Entry<Character, Integer> entry : letterMap.entrySet()) {
         if (letterMap.get(entry.getKey()) == occurances.get(occurances.size() - 1)
             || letterMap.get(entry.getKey()) == occurances.get(occurances.size() - 2)) {
           if (mostCom == "") {
@@ -50,19 +53,13 @@ public class MostCommonCharacters {
           }
         }
       }
-      BufferedWriter writer = new BufferedWriter(new FileWriter(path, true));
-      writer.append(' ');
+      writer.append("\n");
       writer.append(mostCom);
+      writer.append(' ');
       writer.append(mostCom2);
       writer.close();
-    }
-      catch (Exception e) {
+    } catch (Exception e) {
       System.out.println("File does not exist!");
     }
-  }
-
-  public static void main(String[] args) {
-    MostCommonCharacters myTest = new MostCommonCharacters();
-    myTest.findMostCommon("text.txt");
   }
 }
