@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class PositionedImage {
 
-  BufferedImage image;
+  private BufferedImage image;
   private int posX;
   private int posY;
 
@@ -19,6 +19,14 @@ public class PositionedImage {
       e.printStackTrace();
     }
 
+  }
+
+  public BufferedImage getImage() {
+    return image;
+  }
+
+  public void setImage(BufferedImage image) {
+    this.image = image;
   }
 
   public int getPosX() {
