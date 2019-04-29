@@ -32,23 +32,6 @@ public class Board extends JComponent implements KeyListener {
     }
   }
 
-    /* over-complicated way to pseudo-randomly move them, ditched it
-    boolean canMoveUp = aMonster.getPosY() != 0 && aMonster.getPosX() % 140 == 0;
-    boolean canMoveDown = aMonster.getPosY() != 630 && aMonster.getPosX() % 140 == 0;
-    boolean canMoveRight = aMonster.getPosX() != 630 && aMonster.getPosY() % 140 == 0;
-    boolean canMoveLeft = aMonster.getPosX() != 0 && aMonster.getPosY() % 140 == 0;
-
-    if (canMoveDown) {
-      aMonster.setPosY(aMonster.getPosY() + 70);
-    } else if (canMoveRight) {
-      aMonster.setPosX(aMonster.getPosX() + 70);
-    } else if (canMoveLeft) {
-      aMonster.setPosY(aMonster.getPosX() - 70);
-    } else if (canMoveUp){
-      aMonster.setPosX(aMonster.getPosY() - 70);
-    } */
-
-
   public Board() {
     setPreferredSize(new Dimension(1000, 1000));
     setVisible(true);
@@ -89,6 +72,10 @@ public class Board extends JComponent implements KeyListener {
             monster2.setPosY(i * 70);
             monster2.setPosX(j * 70);
             monsterCounter++;
+          } else if (Math.random() * 100 + i + j > 95 && monsterCounter == 3) {
+            boss.setPosX(j * 70);
+            boss.setPosY(i * 70);
+            monsterCounter++;
           }
         }
         tile.setPosX(tile.getPosX() + 70);
@@ -119,10 +106,12 @@ public class Board extends JComponent implements KeyListener {
     monster.draw(graphics);
     monster2.draw(graphics);
     monster3.draw(graphics);
+    boss.draw(graphics);
     tile.setPosX(0);
     tile.setPosY(0);
     wall.setPosY(0);
     wall.setPosX(0);
+    graphics.drawString("Hero (Level " + bigBoy.getLevel() + " ) HP: " + bigBoy.getCurrentHp() + "/" + bigBoy.getHp() + " ł DP: " + bigBoy.getDp() + " ł SP: " + bigBoy.getSp(), 100, 750);
   }
 
   public static void main(String[] args) {

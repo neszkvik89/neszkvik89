@@ -2,7 +2,9 @@ public class Hero extends Character {
   String direction = "down";
 
   public Hero() {
+    this.setLevel(1);
     this.setHp(20 + 3 * rollDie());
+    this.setCurrentHp(this.getHp());
     this.setDp(2 * rollDie());
     this.setSp(5 + rollDie());
   }

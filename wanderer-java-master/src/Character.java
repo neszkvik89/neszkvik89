@@ -1,6 +1,7 @@
 public abstract class Character {
   private int level;
   private int hp;
+  private int currentHp;
   private int dp;
   private int sp;
 
@@ -21,6 +22,14 @@ public abstract class Character {
 
   public void setLevel(int level) {
     this.level = level;
+  }
+
+  public int getCurrentHp() {
+    return currentHp;
+  }
+
+  public void setCurrentHp(int currentHp) {
+    this.currentHp = currentHp;
   }
 
   public int getHp() {
