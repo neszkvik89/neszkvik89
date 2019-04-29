@@ -4,6 +4,9 @@ public abstract class Character {
   private int currentHp;
   private int dp;
   private int sp;
+  private int xPos;
+  private int yPos;
+  private boolean dead = false;
 
   public Character() {
   }
@@ -38,6 +41,30 @@ public abstract class Character {
 
   public void setHp(int hp) {
     this.hp = hp;
+  }
+
+  public int getxPos() {
+    return xPos;
+  }
+
+  public void setxPos(int xPos) {
+    this.xPos = xPos;
+  }
+
+  public int getyPos() {
+    return yPos;
+  }
+
+  public void setyPos(int yPos) {
+    this.yPos = yPos;
+  }
+
+  public boolean isDead() {
+    return dead;
+  }
+
+  public void setDead(boolean dead) {
+    this.dead = dead;
   }
 
   public int getDp() {

@@ -7,6 +7,8 @@ public class Hero extends Character {
     this.setCurrentHp(this.getHp());
     this.setDp(2 * rollDie());
     this.setSp(5 + rollDie());
+    this.setxPos(0);
+    this.setyPos(0);
   }
 
   public String getDirection() {

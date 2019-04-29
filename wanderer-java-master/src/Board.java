@@ -7,6 +7,10 @@ public class Board extends JComponent implements KeyListener {
 
   public static int turnCounter = 0;
   Hero bigBoy = new Hero();
+  Boss bigBoss = new Boss();
+  Monster skeleton1 = new Monster();
+  Monster skeleton2 = new Monster();
+  Monster skeleton3 = new Monster();
   int monsterCounter = 0;
   PositionedImage tile = new PositionedImage("img/floor.png", 0, 0);
   PositionedImage wall = new PositionedImage("img/wall.png", 0, 0);
@@ -19,22 +23,30 @@ public class Board extends JComponent implements KeyListener {
   PositionedImage monster3 = new PositionedImage("img/skeleton.png", 560, 140);
   PositionedImage boss = new PositionedImage("img/boss.png", 0, 0);
 
-  public void moveMonster(PositionedImage aMonster) {
+  public void moveMonster(PositionedImage aMonster, Monster aSkeleton) {
     int dirDecider = (int) (Math.random() * 4) + 1;
     if (dirDecider == 1 && aMonster.getPosY() != 630 && aMonster.getPosX() % 140 == 0) {
       aMonster.setPosY(aMonster.getPosY() + 70);
+      aSkeleton.setyPos(aSkeleton.getyPos() + 70);
     } else if (dirDecider == 2 && aMonster.getPosY() != 0 && aMonster.getPosX() % 140 == 0) {
       aMonster.setPosY(aMonster.getPosY() - 70);
+      aSkeleton.setyPos(aSkeleton.getyPos() - 70);
     } else if (dirDecider == 3 && aMonster.getPosX() != 630 && aMonster.getPosY() % 140 == 0) {
       aMonster.setPosX(aMonster.getPosX() + 70);
+      aSkeleton.setxPos(aSkeleton.getxPos() + 70);
     } else if (dirDecider == 4 && aMonster.getPosX() != 0 && aMonster.getPosY() % 140 == 0) {
       aMonster.setPosX(aMonster.getPosX() - 70);
+      aSkeleton.setxPos(aSkeleton.getxPos() - 70);
     }
   }
 
   public Board() {
     setPreferredSize(new Dimension(1000, 1000));
     setVisible(true);
+  }
+
+  public void combat (Hero myHero, Monster myMonster, Graphics graphics) {
+    graphics.drawString("Combat happening", 100, 800);
   }
 
   public void adjustPositions () {
@@ -44,10 +56,6 @@ public class Board extends JComponent implements KeyListener {
     heroUp.setPosY(hero.getPosY());
     heroLeft.setPosY(hero.getPosY());
     heroRight.setPosY(hero.getPosY());
-  }
-
-  public void paintMonster(Graphics graphics) {
-
   }
 
   @Override
@@ -63,18 +71,26 @@ public class Board extends JComponent implements KeyListener {
           if (i + j!= 0 && Math.random() * 100  + i> 95 && monsterCounter == 0) {
             monster.setPosY(i * 70);
             monster.setPosX(j * 70);
+            skeleton1.setyPos(i * 70);
+            skeleton1.setxPos(j * 70);
             monsterCounter++;
           } else if (Math.random() * 100 + i> 95 && monsterCounter == 1) {
             monster2.setPosY(i * 70);
             monster2.setPosX(j * 70);
+            skeleton2.setyPos(i * 70);
+            skeleton2.setxPos(j * 70);
             monsterCounter++;
           } else if (Math.random() * 100 + j + i> 95 && monsterCounter == 2) {
             monster2.setPosY(i * 70);
             monster2.setPosX(j * 70);
+            skeleton3.setyPos(i * 70);
+            skeleton3.setxPos(j * 70);
             monsterCounter++;
           } else if (Math.random() * 100 + i + j > 95 && monsterCounter == 3) {
             boss.setPosX(j * 70);
             boss.setPosY(i * 70);
+            bigBoss.setxPos(j * 70);
+            bigBoss.setyPos(i * 70);
             monsterCounter++;
           }
         }
@@ -98,15 +114,24 @@ public class Board extends JComponent implements KeyListener {
     }
 
     if (turnCounter % 2 == 0) {
-      moveMonster(monster);
-      moveMonster(monster2);
-      moveMonster(monster3);
+      moveMonster(monster, skeleton1);
+      moveMonster(monster2, skeleton2);
+      moveMonster(monster3, skeleton3);
     }
 
     monster.draw(graphics);
     monster2.draw(graphics);
     monster3.draw(graphics);
     boss.draw(graphics);
+    if (bigBoy.getxPos() == skeleton1.getxPos() && bigBoy.getyPos() == skeleton1.getyPos()) {
+      combat(bigBoy, skeleton1, graphics);
+    } else if (bigBoy.getxPos() == skeleton2.getxPos() && bigBoy.getyPos() == skeleton2.getyPos()) {
+      combat(bigBoy, skeleton2, graphics);
+    } else if (bigBoy.getxPos() == skeleton3.getxPos() && bigBoy.getyPos() == skeleton3.getyPos()) {
+      combat(bigBoy, skeleton3, graphics);
+    } else if (bigBoy.getxPos() == bigBoss.getxPos() && bigBoy.getyPos() == bigBoss.getyPos()) {
+      combat(bigBoy, bigBoss, graphics);
+    }
     tile.setPosX(0);
     tile.setPosY(0);
     wall.setPosY(0);
