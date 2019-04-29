@@ -28,16 +28,24 @@ public class SymmetricMatrix {
 
   public static void main(String[] args) {
     SymmetricMatrix myMatrix = new SymmetricMatrix();
-    int [][] testMatrix = new int [3][3];
+    int [][] testMatrix = new int [4][4];
     testMatrix[0][0] = 1;
-    testMatrix[0][1] = 0;
+    testMatrix[0][1] = 1;
     testMatrix[0][2] = 1;
-    testMatrix[1][0] = 0;
-    testMatrix[1][1] = 2;
-    testMatrix[1][2] = 2;
+    testMatrix[0][3] = 1;
+    testMatrix[1][0] = 1;
+    testMatrix[1][1] = 1;
+    testMatrix[1][2] = 1;
+    testMatrix[1][3] = 1;
     testMatrix[2][0] = 1;
-    testMatrix[2][1] = 2;
-    testMatrix[2][2] = 5;
+    testMatrix[2][1] = 5;
+    testMatrix[2][2] = 3;
+    testMatrix[2][3] = 1;
+    testMatrix[3][0] = 1;
+    testMatrix[3][1] = 1;
+    testMatrix[3][2] = 1;
+    testMatrix[3][3] = 1;
+
 
     System.out.println(myMatrix.isSymmetric(testMatrix));
   }
