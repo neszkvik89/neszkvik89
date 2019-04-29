@@ -19,16 +19,19 @@ public class Board extends JComponent implements KeyListener {
   PositionedImage monster3 = new PositionedImage("img/skeleton.png", 560, 140);
 
   public void moveMonster(PositionedImage aMonster) {
-    boolean canMoveUp = aMonster.getPosY() != 
+    boolean canMoveUp = aMonster.getPosY() != 0 && aMonster.getPosX() % 140 == 0;
+    boolean canMoveDown = aMonster.getPosY() != 630 && aMonster.getPosX() % 140 == 0;
+    boolean canMoveRight = aMonster.getPosX() != 630 && aMonster.getPosY() % 140 == 0;
+    boolean canMoveLeft = aMonster.getPosX() != 0 && aMonster.getPosY() % 140 == 0;
 
-    if (aMonster.getPosY() != 630) {
+    if (canMoveDown) {
       aMonster.setPosY(aMonster.getPosY() + 70);
-    } else if (aMonster.getPosX() != 630) {
+    } else if (canMoveRight) {
       aMonster.setPosX(aMonster.getPosX() + 70);
-    } else if (aMonster.getPosY() > 0) {
-      aMonster.setPosY(aMonster.getPosY() - 70);
-    } else {
-      aMonster.setPosX(aMonster.getPosX() - 70);
+    } else if (canMoveLeft) {
+      aMonster.setPosY(aMonster.getPosX() - 70);
+    } else if (canMoveUp){
+      aMonster.setPosX(aMonster.getPosY() - 70);
     }
   }
 
