@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 public class Board extends JComponent implements KeyListener {
 
+  public static int turnCounter = 0;
   Hero bigBoy = new Hero();
   int monsterCounter = 0;
   PositionedImage tile = new PositionedImage("img/floor.png", 0, 0);
@@ -13,7 +14,23 @@ public class Board extends JComponent implements KeyListener {
   PositionedImage heroUp = new PositionedImage("img/hero-up.png", 0, 0);
   PositionedImage heroLeft = new PositionedImage("img/hero-left.png", 0, 0);
   PositionedImage heroRight = new PositionedImage("img/hero-right.png", 0, 0);
-  PositionedImage monster = new PositionedImage("img/skeleton.png", 0, 0);
+  PositionedImage monster = new PositionedImage("img/skeleton.png", 280, 420);
+  PositionedImage monster2 = new PositionedImage("img/skeleton.png", 420, 560);
+  PositionedImage monster3 = new PositionedImage("img/skeleton.png", 560, 140);
+
+  public void moveMonster(PositionedImage aMonster) {
+    boolean canMoveUp = aMonster.getPosY() != 
+
+    if (aMonster.getPosY() != 630) {
+      aMonster.setPosY(aMonster.getPosY() + 70);
+    } else if (aMonster.getPosX() != 630) {
+      aMonster.setPosX(aMonster.getPosX() + 70);
+    } else if (aMonster.getPosY() > 0) {
+      aMonster.setPosY(aMonster.getPosY() - 70);
+    } else {
+      aMonster.setPosX(aMonster.getPosX() - 70);
+    }
+  }
 
   public Board() {
     setPreferredSize(new Dimension(1000, 1000));
@@ -29,6 +46,10 @@ public class Board extends JComponent implements KeyListener {
     heroRight.setPosY(hero.getPosY());
   }
 
+  public void paintMonster(Graphics graphics) {
+
+  }
+
   @Override
   public void paint(Graphics graphics) {
     super.paint(graphics);
@@ -39,7 +60,19 @@ public class Board extends JComponent implements KeyListener {
           wall.draw(graphics);
         } else {
           tile.draw(graphics);
-          
+          if (i + j!= 0 && Math.random() * 100  + i> 95 && monsterCounter == 0) {
+            monster.setPosY(i * 70);
+            monster.setPosX(j * 70);
+            monsterCounter++;
+          } else if (Math.random() * 100 + i> 95 && monsterCounter == 1) {
+            monster2.setPosY(i * 70);
+            monster2.setPosX(j * 70);
+            monsterCounter++;
+          } else if (Math.random() * 100 + j + i> 95 && monsterCounter == 2) {
+            monster2.setPosY(i * 70);
+            monster2.setPosX(j * 70);
+            monsterCounter++;
+          }
         }
         tile.setPosX(tile.getPosX() + 70);
         wall.setPosX(wall.getPosX() + 70);
@@ -49,6 +82,7 @@ public class Board extends JComponent implements KeyListener {
       tile.setPosX(0);
       wall.setPosX(0);
     }
+
     if (bigBoy.getDirection() == "down") {
       hero.draw(graphics);
     } else if (bigBoy.getDirection() == "up") {
@@ -58,6 +92,16 @@ public class Board extends JComponent implements KeyListener {
     } else {
       heroRight.draw(graphics);
     }
+
+    if (turnCounter % 2 == 0) {
+      moveMonster(monster);
+      moveMonster(monster2);
+      moveMonster(monster3);
+    }
+
+    monster.draw(graphics);
+    monster2.draw(graphics);
+    monster3.draw(graphics);
     tile.setPosX(0);
     tile.setPosY(0);
     wall.setPosY(0);
@@ -90,18 +134,23 @@ public class Board extends JComponent implements KeyListener {
 
   @Override
   public void keyReleased(KeyEvent e) {
+
     if (e.getKeyCode() == KeyEvent.VK_UP && this.hero.getPosY() > 0 && this.hero.getPosX() % 140 == 0) {
        this.hero.setPosY(this.hero.getPosY() - 70);
        bigBoy.setDirection("up");
+       turnCounter++;
     } else if (e.getKeyCode() == KeyEvent.VK_DOWN && this.hero.getPosY() <= 560 && this.hero.getPosX() % 140 == 0) {
       this.hero.setPosY((this.hero.getPosY() + 70));
       bigBoy.setDirection("down");
+      turnCounter++;
     } else if (e.getKeyCode() == KeyEvent.VK_LEFT && this.hero.getPosX() > 0 && this.hero.getPosY() % 140 == 0) {
       this.hero.setPosX(this.hero.getPosX() - 70);
       bigBoy.setDirection("left");
+      turnCounter++;
     } else if (e.getKeyCode() == KeyEvent.VK_RIGHT && this.hero.getPosX() <= 560 && this.hero.getPosY() % 140 == 0) {
       this.hero.setPosX(this.hero.getPosX() + 70);
       bigBoy.setDirection("right");
+      turnCounter++;
     }
     adjustPositions();
     repaint();
