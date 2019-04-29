@@ -17,8 +17,22 @@ public class Board extends JComponent implements KeyListener {
   PositionedImage monster = new PositionedImage("img/skeleton.png", 280, 420);
   PositionedImage monster2 = new PositionedImage("img/skeleton.png", 420, 560);
   PositionedImage monster3 = new PositionedImage("img/skeleton.png", 560, 140);
+  PositionedImage boss = new PositionedImage("img/boss.png", 0, 0);
 
   public void moveMonster(PositionedImage aMonster) {
+    int dirDecider = (int) (Math.random() * 4) + 1;
+    if (dirDecider == 1 && aMonster.getPosY() != 630 && aMonster.getPosX() % 140 == 0) {
+      aMonster.setPosY(aMonster.getPosY() + 70);
+    } else if (dirDecider == 2 && aMonster.getPosY() != 0 && aMonster.getPosX() % 140 == 0) {
+      aMonster.setPosY(aMonster.getPosY() - 70);
+    } else if (dirDecider == 3 && aMonster.getPosX() != 630 && aMonster.getPosY() % 140 == 0) {
+      aMonster.setPosX(aMonster.getPosX() + 70);
+    } else if (dirDecider == 4 && aMonster.getPosX() != 0 && aMonster.getPosY() % 140 == 0) {
+      aMonster.setPosX(aMonster.getPosX() - 70);
+    }
+  }
+
+    /* over-complicated way to pseudo-randomly move them, ditched it
     boolean canMoveUp = aMonster.getPosY() != 0 && aMonster.getPosX() % 140 == 0;
     boolean canMoveDown = aMonster.getPosY() != 630 && aMonster.getPosX() % 140 == 0;
     boolean canMoveRight = aMonster.getPosX() != 630 && aMonster.getPosY() % 140 == 0;
@@ -32,8 +46,8 @@ public class Board extends JComponent implements KeyListener {
       aMonster.setPosY(aMonster.getPosX() - 70);
     } else if (canMoveUp){
       aMonster.setPosX(aMonster.getPosY() - 70);
-    }
-  }
+    } */
+
 
   public Board() {
     setPreferredSize(new Dimension(1000, 1000));
