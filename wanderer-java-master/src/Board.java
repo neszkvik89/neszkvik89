@@ -18,9 +18,9 @@ public class Board extends JComponent implements KeyListener {
   PositionedImage heroUp = new PositionedImage("img/hero-up.png", 0, 0);
   PositionedImage heroLeft = new PositionedImage("img/hero-left.png", 0, 0);
   PositionedImage heroRight = new PositionedImage("img/hero-right.png", 0, 0);
-  PositionedImage monster1 = new PositionedImage("img/skeleton.png", 280, 420);
-  PositionedImage monster2 = new PositionedImage("img/skeleton.png", 420, 560);
-  PositionedImage monster3 = new PositionedImage("img/skeleton.png", 560, 140);
+  PositionedImage monster1 = new PositionedImage("img/skeleton.png", 0, 0);
+  PositionedImage monster2 = new PositionedImage("img/skeleton.png", 0, 0);
+  PositionedImage monster3 = new PositionedImage("img/skeleton.png", 0, 0);
   PositionedImage boss = new PositionedImage("img/boss.png", 0, 0);
 
   public void combatPartner (Graphics graphics) {
@@ -35,10 +35,8 @@ public class Board extends JComponent implements KeyListener {
     }
   }
 
-
-
   public void combat (Monster myMonster, Graphics graphics) {
-    while (theHero.isDead() != true && myMonster.isDead() != true) {
+    while (!theHero.isDead() && !myMonster.isDead()) {
       theHero.bothStrike(theHero, myMonster, graphics);
     }
   }
@@ -158,8 +156,9 @@ public class Board extends JComponent implements KeyListener {
     wall.setPosY(0);
     wall.setPosX(0);
     graphics.drawString("Hero (Level " + theHero.getLevel() + " ) HP: " + theHero.getCurrentHp() + "/" + theHero.getHp()
-        + " ł DP: " + theHero.getDp() + " ł SP: " + theHero.getSp() + "    " + theHero.getxPos() + " "
-        + theHero.getyPos(), 100, 750);
+        + " ł DP: " + theHero.getDp() + " ł SP: " + theHero.getSp() + "    " + skeleton1.getxPos() + " "
+        + skeleton1.getyPos() + "HP: " + skeleton1.getCurrentHp(), 100, 750);
+    combatPartner(graphics);
   }
 
   public static void main(String[] args) {
