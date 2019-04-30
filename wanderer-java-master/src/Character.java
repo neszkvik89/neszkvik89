@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -11,6 +10,7 @@ public abstract class Character implements KeyListener {
   private int xPos;
   private int yPos;
   private boolean dead = false;
+  private boolean hasKey = false;
 
   public Character() {
   }
@@ -25,33 +25,36 @@ public abstract class Character implements KeyListener {
     if (myHero.getSp() + 2 * rollDie() > myMonster.getDp()) {
       dmgTemp = (myHero.getSp() + rollDie() * 2 - myMonster.getDp());
       myMonster.setCurrentHp(myMonster.getCurrentHp() - dmgTemp);
-      // graphics.drawString("Monster took " + dmgTemp + " damage.", 100, 850);
       if (myMonster.getCurrentHp() <= 0) {
         myMonster.setDead(true);
         myMonster.setxPos(Integer.MAX_VALUE);
         myMonster.setyPos(Integer.MAX_VALUE);
-        // graphics.drawString("Monster died.", 200, 850);
+        if (myMonster.isHasKey()) {
+          myHero.setHasKey(true);
+          myMonster.setHasKey(false);
+        }
       }
-    } else {
-      //graphics.drawString("Hero missed with his swing, no damage done.", 100, 850);
     }
 
-    if (!myMonster.isDead() && myMonster.getSp() + 2 * rollDie() > myHero.getDp()) {
+    if (myMonster.getSp() + 2 * rollDie() > myHero.getDp()) {
       dmgTemp = (myMonster.getSp() + rollDie() * 2);
       myHero.setCurrentHp(myHero.getCurrentHp() - dmgTemp);
-      //graphics.drawString("Hero took " + dmgTemp + " damage.", 100, 900);
 
       if (myHero.getCurrentHp() <= 0) {
         myHero.setDead(true);
-        //graphics.setColor(Color.RED);
-        //graphics.drawString("Hero died, GAME OVER!", 300, 300);
-        //graphics.setColor(Color.BLACK);
-      } else {
-        //graphics.drawString("Monster missed with his swing, no damage done.", 100, 900);
+        myHero.setxPos(Integer.MAX_VALUE);
+        myHero.setyPos(Integer.MAX_VALUE);
       }
     }
   }
 
+  public boolean isHasKey() {
+    return hasKey;
+  }
+
+  public void setHasKey(boolean hasKey) {
+    this.hasKey = hasKey;
+  }
 
   public int getLevel() {
     return level;

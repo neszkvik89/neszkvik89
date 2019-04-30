@@ -23,18 +23,6 @@ public class Board extends JComponent implements KeyListener {
   PositionedImage monster3 = new PositionedImage("img/skeleton.png", skeleton3.getxPos(), skeleton3.getyPos());
   PositionedImage boss = new PositionedImage("img/boss.png", theBoss.getxPos(), theBoss.getyPos());
 
-  public void combatPartner (Graphics graphics, KeyEvent e) {
-    if (theHero.getyPos() == skeleton1.getyPos() && theHero.getxPos() == skeleton1.getxPos()) {
-      combat(skeleton1);
-    } else if (theHero.getyPos() == skeleton2.getyPos() && theHero.getxPos() == skeleton2.getxPos()) {
-      combat(skeleton2);
-    } else if (theHero.getyPos() == skeleton3.getyPos() && theHero.getxPos() == skeleton3.getxPos()) {
-      combat(skeleton3);
-    } else if (theHero.getyPos() == theBoss.getyPos() && theHero.getxPos() == theBoss.getxPos()) {
-      combat(theBoss);
-    }
-  }
-
   public void combat (Monster myMonster) {
     while (!theHero.isDead() && !myMonster.isDead()) {
       theHero.bothStrike(theHero, myMonster);
@@ -72,10 +60,40 @@ public class Board extends JComponent implements KeyListener {
     heroRight.setPosY(hero.getPosY());
   }
 
+  public void reset () {
+    theHero.levelUp();
+    int heroEffectDecider = (int) (Math.random() * 100 + 1);
+    if (heroEffectDecider > 90) {
+      theHero.setCurrentHp(theHero.getHp());
+    } else if (heroEffectDecider > 50) {
+      theHero.setCurrentHp(Math.min(theHero.getCurrentHp() + theHero.getHp() / 3, theHero.getHp()));
+    } else {
+      theHero.setCurrentHp((int) (Math.min(theHero.getCurrentHp() + theHero.getHp() * 0.1, theHero.getHp())));
+    }
+    monsterCounter = 0;
+    resetStats(skeleton1);
+    resetStats(skeleton2);
+    resetStats(skeleton3);
+    resetStats(theBoss);
+  }
+
+  public void resetStats (Monster toLevelUp) {
+    toLevelUp.setLevel(skeleton1.getLevel() + 1);
+    toLevelUp.setHp(skeleton1.getLevel() * 2 * Character.rollDie());
+    toLevelUp.setCurrentHp(skeleton1.getHp());
+    toLevelUp.setDp(skeleton2.getLevel() / 2 * Character.rollDie());
+    toLevelUp.setSp(skeleton2.getLevel() * Character.rollDie());
+    toLevelUp.setDead(false);
+  }
+
   @Override
   public void paint(Graphics graphics) {
 
     super.paint(graphics);
+    skeleton3.setHasKey(true);
+    if (theHero.isHasKey() && theBoss.isDead()) {
+      reset();
+    }
 
     for (int i = 0; i < 10; i++) {
       for (int j = 0; j < 10; j++) {
@@ -90,19 +108,19 @@ public class Board extends JComponent implements KeyListener {
             skeleton1.setyPos(i * 70);
             skeleton1.setxPos(j * 70);
             monsterCounter++;
-          } else if (Math.random() * 100 + i> 95 && monsterCounter == 1 && !skeleton2.isDead()) {
+          } else if (i + j!= 0 && Math.random() * 100 + i> 95 && monsterCounter == 1 && !skeleton2.isDead()) {
             monster2.setPosY(i * 70);
             monster2.setPosX(j * 70);
             skeleton2.setyPos(i * 70);
             skeleton2.setxPos(j * 70);
             monsterCounter++;
-          } else if (Math.random() * 100 + j + i> 95 && monsterCounter == 2 && !skeleton3.isDead()) {
+          } else if (i + j!= 0 && Math.random() * 100 + j + i> 95 && monsterCounter == 2 && !skeleton3.isDead()) {
             monster3.setPosY(i * 70);
             monster3.setPosX(j * 70);
             skeleton3.setyPos(i * 70);
             skeleton3.setxPos(j * 70);
             monsterCounter++;
-          } else if (Math.random() * 100 + i + j > 95 && monsterCounter == 3 && !theBoss.isDead()) {
+          } else if (i + j!= 0 && Math.random() * 100 + i + j > 95 && monsterCounter == 3 && !theBoss.isDead()) {
             boss.setPosX(j * 70);
             boss.setPosY(i * 70);
             theBoss.setxPos(j * 70);
