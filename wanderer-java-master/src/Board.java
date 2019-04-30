@@ -25,19 +25,19 @@ public class Board extends JComponent implements KeyListener {
 
   public void combatPartner (Graphics graphics, KeyEvent e) {
     if (theHero.getyPos() == skeleton1.getyPos() && theHero.getxPos() == skeleton1.getxPos()) {
-      combat(skeleton1, graphics, e);
+      combat(skeleton1);
     } else if (theHero.getyPos() == skeleton2.getyPos() && theHero.getxPos() == skeleton2.getxPos()) {
-      combat(skeleton2, graphics, e);
+      combat(skeleton2);
     } else if (theHero.getyPos() == skeleton3.getyPos() && theHero.getxPos() == skeleton3.getxPos()) {
-      combat(skeleton3, graphics, e);
+      combat(skeleton3);
     } else if (theHero.getyPos() == theBoss.getyPos() && theHero.getxPos() == theBoss.getxPos()) {
-      combat(theBoss, graphics, e);
+      combat(theBoss);
     }
   }
 
-  public void combat (Monster myMonster, Graphics graphics, KeyEvent e) {
+  public void combat (Monster myMonster) {
     while (!theHero.isDead() && !myMonster.isDead()) {
-      theHero.bothStrike(theHero, myMonster, graphics, e);
+      theHero.bothStrike(theHero, myMonster);
     }
   }
 
@@ -203,7 +203,15 @@ public class Board extends JComponent implements KeyListener {
       theHero.setDirection("right");
       turnCounter++;
     } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-      combatPartner();
+      if (theHero.getyPos() == skeleton1.getyPos() && theHero.getxPos() == skeleton1.getxPos()) {
+        combat(skeleton1);
+      } else if (theHero.getyPos() == skeleton2.getyPos() && theHero.getxPos() == skeleton2.getxPos()) {
+        combat(skeleton2);
+      } else if (theHero.getyPos() == skeleton3.getyPos() && theHero.getxPos() == skeleton3.getxPos()) {
+        combat(skeleton3);
+      } else if (theHero.getyPos() == theBoss.getyPos() && theHero.getxPos() == theBoss.getxPos()) {
+        combat(theBoss);
+      }
     }
     adjustPositions();
     repaint();
