@@ -62,6 +62,8 @@ public class Board extends JComponent implements KeyListener {
 
   public void reset () {
     theHero.levelUp();
+    theHero.setyPos(0);
+    theHero.setxPos(0);
     int heroEffectDecider = (int) (Math.random() * 100 + 1);
     if (heroEffectDecider > 90) {
       theHero.setCurrentHp(theHero.getHp());
@@ -93,6 +95,11 @@ public class Board extends JComponent implements KeyListener {
     skeleton3.setHasKey(true);
     if (theHero.isHasKey() && theBoss.isDead()) {
       reset();
+    }
+
+    if (theHero.getCurrentHp() <= 0) {
+      graphics.setColor(Color.RED);
+      graphics.drawString("GAME OVER", 300, 300);
     }
 
     for (int i = 0; i < 10; i++) {
@@ -171,7 +178,11 @@ public class Board extends JComponent implements KeyListener {
     wall.setPosY(0);
     wall.setPosX(0);
     graphics.drawString("Hero (Level " + theHero.getLevel() + " ) HP: " + theHero.getCurrentHp() + "/" + theHero.getHp()
-         + " ł DP: " + theHero.getDp() + " ł SP: " + theHero.getSp() + " ", 100, 765);
+         + " ł DP: " + theHero.getDp() + " ł SP: " + theHero.getSp() + " " + " isdead? " + theHero.isDead(), 100, 765);
+    graphics.drawString("nr1: " + skeleton1.getCurrentHp() + " " + skeleton1.getDp() + " " + skeleton1.getSp() + " " + skeleton1.isDead() + skeleton1.getLevel(), 100, 780);
+    graphics.drawString("nr2: " + skeleton2.getCurrentHp() + " " + skeleton2.getDp() + " " + skeleton2.getSp() + " " + skeleton2.isDead() + skeleton2.getLevel(), 100, 795);
+    graphics.drawString("nr3: " + skeleton3.getCurrentHp() + " " + skeleton3.getDp() + " " + skeleton3.getSp() + " " + skeleton3.isDead() + skeleton3.getLevel(), 100, 810);
+    graphics.drawString("Boss: " + theBoss.getCurrentHp() + " " + theBoss.getDp() + " " + theBoss.getSp() + " " + theBoss.isDead() + theBoss.getLevel(), 100, 825);
   }
 
   public static void main(String[] args) {

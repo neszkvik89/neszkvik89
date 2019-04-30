@@ -3,9 +3,9 @@ public class Hero extends Character {
 
   public Hero() {
     this.setLevel(1);
-    this.setHp(20 + 3 * rollDie());
+    this.setHp(30 + 3 * rollDie());
     this.setCurrentHp(this.getHp());
-    this.setDp(2 * rollDie());
+    this.setDp(2 * rollDie() + 4);
     this.setSp(5 + rollDie());
     this.setxPos(0);
     this.setyPos(0);

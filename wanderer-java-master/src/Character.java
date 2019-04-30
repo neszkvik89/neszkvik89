@@ -22,7 +22,7 @@ public abstract class Character implements KeyListener {
   public void bothStrike(Hero myHero, Monster myMonster) {
     int dmgTemp;
 
-    if (myHero.getSp() + 2 * rollDie() > myMonster.getDp()) {
+    if (/*myHero.getSp() + 2 * rollDie() > myMonster.getDp()*/ true) {
       dmgTemp = (myHero.getSp() + rollDie() * 2 - myMonster.getDp());
       myMonster.setCurrentHp(myMonster.getCurrentHp() - dmgTemp);
       if (myMonster.getCurrentHp() <= 0) {
