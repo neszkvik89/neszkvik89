@@ -138,10 +138,19 @@ public class Board extends JComponent implements KeyListener {
       moveMonster(monster3, skeleton3);
     }
 
-    monster1.draw(graphics);
-    monster2.draw(graphics);
-    monster3.draw(graphics);
-    boss.draw(graphics);
+    if (!skeleton1.isDead()) {
+      monster1.draw(graphics);
+    }
+    if (!skeleton2.isDead()) {
+      monster2.draw(graphics);
+    }
+    if (!skeleton3.isDead()){
+      monster3.draw(graphics);
+    }
+    if (!theBoss.isDead()) {
+      boss.draw(graphics);
+    }
+
     if (theHero.getxPos() == skeleton1.getxPos() && theHero.getyPos() == skeleton1.getyPos()) {
       combat(theHero, skeleton1, graphics);
     } else if (theHero.getxPos() == skeleton2.getxPos() && theHero.getyPos() == skeleton2.getyPos()) {
