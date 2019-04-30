@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public abstract class Character {
   private int level;
   private int hp;
@@ -15,7 +17,35 @@ public abstract class Character {
     return (int) (Math.random() * 6 + 1);
   }
 
-  public void strike () {
+  public void bothStrike (Hero myHero, Monster myMonster, Graphics graphics) {
+    int dmgTemp = 0;
+    if (myHero.getSp() + 2 * rollDie() > myMonster.getDp()) {
+      dmgTemp = (myHero.getSp() + rollDie() * 2 - myMonster.getDp());
+      myMonster.setHp(myMonster.getHp() - dmgTemp);
+      graphics.drawString("Monster took " + dmgTemp + " damage.", 100, 850);
+      if (myMonster.getHp() <= 0) {
+        myMonster.setDead(true);
+        graphics.drawString("Monster died.", 200, 850);
+      }
+    } else {
+      graphics.drawString("Hero missed with his swing, no damage done.", 100, 850);
+    }
+
+    if (myMonster.isDead() != true && myMonster.getSp() + 2 * rollDie() > myHero.getDp()) {
+      dmgTemp = (myMonster.getSp() + rollDie() * 2);
+      myHero.setHp(myHero.getHp() - dmgTemp);
+      graphics.drawString("Hero took " + dmgTemp + " damage.", 100, 900);
+      if (myHero.getHp() <= 0) {
+        myHero.setDead(true);
+        graphics.setColor(Color.RED);
+        graphics.drawString("Hero died, GAME OVER!", 300, 300);
+        graphics.setColor(Color.BLACK);
+      }
+    } else {
+      graphics.drawString("Monster missed with his swing, no damage done.", 100, 900);
+    }
+
+
 
   }
 

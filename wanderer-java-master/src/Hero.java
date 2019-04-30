@@ -11,6 +11,7 @@ public class Hero extends Character {
     this.setyPos(0);
   }
 
+
   public String getDirection() {
     return direction;
   }
