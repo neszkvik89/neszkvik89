@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class Board extends JComponent implements KeyListener {
   public static ArrayList<Monster> myMonsters = new ArrayList<>();
@@ -26,6 +27,9 @@ public class Board extends JComponent implements KeyListener {
     // Here is how you set up a new window and adding our board to it
     JFrame frame = new JFrame("RPG Game");
     Board board = new Board();
+    java.util.Timer time = new Timer();
+    TimedMovement st = new TimedMovement();
+    time.schedule(st, 0, 3000);
 
     frame.add(board);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,6 +41,12 @@ public class Board extends JComponent implements KeyListener {
   public void fillMonsterList() {
     for (int i = 0; i <= (int) (Math.random() * 6 + 2); i++) {
       myMonsters.add(new Monster());
+      int monsterLevelDecider = (int) (Math.random() * 100) + 1;
+      if (monsterLevelDecider > 60) {
+        myMonsters.get(i).setLevel(myMonsters.get(i).getLevel() + 1);
+      } else if (monsterLevelDecider > 50 && monsterLevelDecider < 60) {
+        myMonsters.get(i).setLevel(myMonsters.get(i).getLevel() + 2);
+      }
     }
     myMonsters.add(new Boss());
   }
@@ -54,7 +64,7 @@ public class Board extends JComponent implements KeyListener {
     }
   }
 
-  public void moveMonster(PositionedImage aMonster, Monster aSkeleton) {
+  public static void moveMonster(PositionedImage aMonster, Monster aSkeleton) {
     int dirDecider = (int) (Math.random() * 4) + 1;
     if (!aSkeleton.isDead() && dirDecider == 1 && aMonster.getPosY() != 630 && aMonster.getPosX() % 140 == 0) {
       aMonster.setPosY(aMonster.getPosY() + 70);
@@ -102,11 +112,11 @@ public class Board extends JComponent implements KeyListener {
       theHero.setCurrentHp((int) (Math.min(theHero.getCurrentHp() + theHero.getHp() * 0.1, theHero.getHp())));
     }
     monsterCounter = 0;
-    levelUpCharacters(myMonsters);
+    levelUpMonsters(myMonsters);
 
   }
 
-  public void levelUpCharacters(ArrayList<Monster> characterList) {
+  public void levelUpMonsters(ArrayList<Monster> characterList) {
     for (int i = 0; i < characterList.size(); i++) {
       characterList.get(i).setDead(false);
       characterList.get(i).setLevel(characterList.get(i).getLevel());
