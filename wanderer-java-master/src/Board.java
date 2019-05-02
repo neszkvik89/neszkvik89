@@ -6,11 +6,9 @@ import java.util.ArrayList;
 
 public class Board extends JComponent implements KeyListener {
   public static ArrayList<Monster> myMonsters = new ArrayList<>();
-
   public static ArrayList<PositionedImage> myMonsterImages = new ArrayList<>();
   public static int turnCounter = 0;
   Hero theHero = new Hero();
-  Boss theBoss = new Boss();
   int monsterCounter = 0;
   PositionedImage tile = new PositionedImage("img/floor.png", 0, 0);
   PositionedImage wall = new PositionedImage("img/wall.png", 0, 0);
@@ -18,7 +16,7 @@ public class Board extends JComponent implements KeyListener {
   PositionedImage heroUp = new PositionedImage("img/hero-up.png", theHero.getxPos(), theHero.getyPos());
   PositionedImage heroLeft = new PositionedImage("img/hero-left.png", theHero.getxPos(), theHero.getyPos());
   PositionedImage heroRight = new PositionedImage("img/hero-right.png", theHero.getxPos(), theHero.getyPos());
-  PositionedImage boss = new PositionedImage("img/boss.png", theBoss.getxPos(), theBoss.getyPos());
+
   public Board() {
     setPreferredSize(new Dimension(1000, 1000));
     setVisible(true);
@@ -36,21 +34,21 @@ public class Board extends JComponent implements KeyListener {
     frame.addKeyListener(board);
   }
 
-  public void fillMonsterList () {
+  public void fillMonsterList() {
     for (int i = 0; i < (int) Math.random() * 6 + 1; i++) {
       myMonsters.add(new Monster());
     }
     myMonsters.add(new Boss());
   }
 
-  public void fillMonsterImagesList () {
+  public void fillMonsterImagesList() {
     for (int i = 0; i < myMonsters.size(); i++) {
       myMonsterImages.add(i, new PositionedImage("img/skeleton.png", myMonsters.get(i).getxPos(), myMonsters.get(i).getyPos()));
     }
-    myMonsterImages.add(myMonsterImages.size() - 1, new PositionedImage("img/boss.png", 0, 0);
+    myMonsterImages.add(myMonsterImages.size() - 1, new PositionedImage("img/boss.png", 0, 0));
   }
 
-  public void combat (Monster myMonster) {
+  public void combat(Monster myMonster) {
     while (!theHero.isDead() && !myMonster.isDead()) {
       theHero.bothStrike(theHero, myMonster);
     }
@@ -73,7 +71,7 @@ public class Board extends JComponent implements KeyListener {
     }
   }
 
-  public void adjustPositions () {
+  public void adjustPositions() {
     heroUp.setPosX(heroDown.getPosX());
     heroLeft.setPosX(heroDown.getPosX());
     heroRight.setPosX(heroDown.getPosX());
@@ -82,7 +80,7 @@ public class Board extends JComponent implements KeyListener {
     heroRight.setPosY(heroDown.getPosY());
   }
 
-  public void reset () {
+  public void reset() {
     theHero.levelUp();
     theHero.setyPos(0);
     theHero.setxPos(0);
@@ -121,18 +119,17 @@ public class Board extends JComponent implements KeyListener {
 
   @Override
   public void paint(Graphics graphics) {
-
     super.paint(graphics);
-    fillMonsterList();
-    fillMonsterImagesList();
-    skeleton3.setHasKey(true);
-    if (theHero.isHasKey() && theBoss.isDead()) {
-      reset();
+    if (myMonsters.isEmpty()) {
+      fillMonsterList();
     }
-
-    if (theHero.getCurrentHp() <= 0) {
-      graphics.setColor(Color.RED);
-      graphics.drawString("GAME OVER", 300, 300);
+    if (myMonsterImages.isEmpty()) {
+      fillMonsterImagesList();
+    }
+    
+    myMonsters.get(myMonsters.size() - 1).setHasKey(true);
+    if (theHero.isHasKey() && myMonsters.get(myMonsters.size() - 1).isDead()) {
+      reset();
     }
 
     for (int i = 0; i < 10; i++) {
@@ -142,81 +139,51 @@ public class Board extends JComponent implements KeyListener {
         } else {
           tile.draw(graphics);
 
-          if (i + j!= 0 && Math.random() * 100  + i> 95 && monsterCounter == 0 && !skeleton1.isDead()) {
-            monster1.setPosY(i * 70);
-            monster1.setPosX(j * 70);
-            skeleton1.setyPos(i * 70);
-            skeleton1.setxPos(j * 70);
-            monsterCounter++;
-          } else if (i + j!= 0 && Math.random() * 100 + i> 95 && monsterCounter == 1 && !skeleton2.isDead()) {
-            monster2.setPosY(i * 70);
-            monster2.setPosX(j * 70);
-            skeleton2.setyPos(i * 70);
-            skeleton2.setxPos(j * 70);
-            monsterCounter++;
-          } else if (i + j!= 0 && Math.random() * 100 + j + i> 95 && monsterCounter == 2 && !skeleton3.isDead()) {
-            monster3.setPosY(i * 70);
-            monster3.setPosX(j * 70);
-            skeleton3.setyPos(i * 70);
-            skeleton3.setxPos(j * 70);
-            monsterCounter++;
-          } else if (i + j!= 0 && Math.random() * 100 + i + j > 95 && monsterCounter == 3 && !theBoss.isDead()) {
-            boss.setPosX(j * 70);
-            boss.setPosY(i * 70);
-            theBoss.setxPos(j * 70);
-            theBoss.setyPos(i * 70);
+          if (i + j != 0 && Math.random() * 100 + i > 95 && monsterCounter < myMonsters.size() && !myMonsters.get(monsterCounter).isDead()) {
+            myMonsters.get(monsterCounter).setyPos(i * 70);
+            myMonsters.get(monsterCounter).setxPos(j * 70);
+            myMonsterImages.get(monsterCounter).setPosY(i * 70);
+            myMonsterImages.get(monsterCounter).setPosX(j * 70);
             monsterCounter++;
           }
         }
-        tile.setPosX(tile.getPosX() + 70);
-        wall.setPosX(wall.getPosX() + 70);
       }
-      tile.setPosY(tile.getPosY() + 70);
-      wall.setPosY(wall.getPosY() + 70);
-      tile.setPosX(0);
-      wall.setPosX(0);
+      tile.setPosX(tile.getPosX() + 70);
+      wall.setPosX(wall.getPosX() + 70);
     }
+    tile.setPosY(tile.getPosY() + 70);
+    wall.setPosY(wall.getPosY() + 70);
+    tile.setPosX(0);
+    wall.setPosX(0);
 
-    if (theHero.getDirection().equals("down")) {
-      heroDown.draw(graphics);
-    } else if (theHero.getDirection().equals("up")) {
-      heroUp.draw(graphics);
-    } else if (theHero.getDirection().equals("left")) {
-      heroLeft.draw(graphics);
-    } else {
-      heroRight.draw(graphics);
-    }
+    if(theHero.getDirection().equals("down")) {
+    heroDown.draw(graphics);
+  } else if(theHero.getDirection().equals("up")) {
+    heroUp.draw(graphics);
+  } else if(theHero.getDirection().equals("left")) {
+    heroLeft.draw(graphics);
+  } else {
+    heroRight.draw(graphics);
+  }
 
-    if (turnCounter % 2 == 0) {
-      moveMonster(monster1, skeleton1);
-      moveMonster(monster2, skeleton2);
-      moveMonster(monster3, skeleton3);
-    }
+    if(turnCounter % 2 == 0) {
+      for (int i = 0; i < myMonsters. size() - 1; i++) {
+        moveMonster(myMonsterImages.get(i), myMonsters.get(i));
+      }
+  }
 
-    if (!skeleton1.isDead()) {
-      monster1.draw(graphics);
+    for (int i = 0; i < myMonsters.size(); i++) {
+      if (!myMonsters.get(i).isDead()) {
+        myMonsterImages.get(i).draw(graphics);
+      }
     }
-    if (!skeleton2.isDead()) {
-      monster2.draw(graphics);
-    }
-    if (!skeleton3.isDead()){
-      monster3.draw(graphics);
-    }
-    if (!theBoss.isDead()) {
-      boss.draw(graphics);
-    }
-
     tile.setPosX(0);
     tile.setPosY(0);
     wall.setPosY(0);
     wall.setPosX(0);
-    graphics.drawString("Hero (Level " + theHero.getLevel() + " ) HP: " + theHero.getCurrentHp() + "/" + theHero.getHp() + " x: " + theHero.getxPos() + " y: " + theHero.getyPos() + " "
-         + " ł DP: " + theHero.getDp() + " ł SP: " + theHero.getSp() + " " + " isdead? " + theHero.isDead(), 100, 765);
-    graphics.drawString("nr1: " + skeleton1.getCurrentHp() + " " + skeleton1.getDp() + " " + skeleton1.getSp() + " " + skeleton1.isDead() + skeleton1.getLevel(), 100, 780);
-    graphics.drawString("nr2: " + skeleton2.getCurrentHp() + " " + skeleton2.getDp() + " " + skeleton2.getSp() + " " + skeleton2.isDead() + skeleton2.getLevel(), 100, 795);
-    graphics.drawString("nr3: " + skeleton3.getCurrentHp() + " " + skeleton3.getDp() + " " + skeleton3.getSp() + " " + skeleton3.isDead() + skeleton3.getLevel(), 100, 810);
-    graphics.drawString("Boss: " + theBoss.getCurrentHp() + " " + theBoss.getDp() + " " + theBoss.getSp() + " " + theBoss.isDead() + theBoss.getLevel(), 100, 825);
-  }
+    graphics.drawString("Hero (Level "+theHero.getLevel()+" ) HP: "+theHero.getCurrentHp()+"/"+theHero.getHp()+" x: "+theHero.getxPos()+" y: "+theHero.getyPos()+" "
+        +" ł DP: "+theHero.getDp()+" ł SP: "+theHero.getSp()+" "+" isdead? "+theHero.isDead(),100,765);
+}
 
   // To be a KeyListener the class needs to have these 3 methods in it
   @Override
@@ -233,10 +200,10 @@ public class Board extends JComponent implements KeyListener {
   public void keyReleased(KeyEvent e) {
 
     if (e.getKeyCode() == KeyEvent.VK_UP && this.heroDown.getPosY() > 0 && this.heroDown.getPosX() % 140 == 0) {
-       this.heroDown.setPosY(this.heroDown.getPosY() - 70);
-       theHero.setyPos(theHero.getyPos() - 70);
-       theHero.setDirection("up");
-       turnCounter++;
+      this.heroDown.setPosY(this.heroDown.getPosY() - 70);
+      theHero.setyPos(theHero.getyPos() - 70);
+      theHero.setDirection("up");
+      turnCounter++;
     } else if (e.getKeyCode() == KeyEvent.VK_DOWN && this.heroDown.getPosY() <= 560 && this.heroDown.getPosX() % 140 == 0) {
       this.heroDown.setPosY((this.heroDown.getPosY() + 70));
       theHero.setyPos(theHero.getyPos() + 70);
@@ -253,14 +220,10 @@ public class Board extends JComponent implements KeyListener {
       theHero.setDirection("right");
       turnCounter++;
     } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-      if (theHero.getyPos() == skeleton1.getyPos() && theHero.getxPos() == skeleton1.getxPos()) {
-        combat(skeleton1);
-      } else if (theHero.getyPos() == skeleton2.getyPos() && theHero.getxPos() == skeleton2.getxPos()) {
-        combat(skeleton2);
-      } else if (theHero.getyPos() == skeleton3.getyPos() && theHero.getxPos() == skeleton3.getxPos()) {
-        combat(skeleton3);
-      } else if (theHero.getyPos() == theBoss.getyPos() && theHero.getxPos() == theBoss.getxPos()) {
-        combat(theBoss);
+      for (int i = 0; i < myMonsters.size(); i++) {
+        if (theHero.getyPos() == myMonsters.get(i).getyPos() && theHero.getxPos() == myMonsters.get(i).getxPos()) {
+          combat(myMonsters.get(i));
+        }
       }
     }
     adjustPositions();
