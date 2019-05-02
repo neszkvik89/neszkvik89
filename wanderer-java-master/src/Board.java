@@ -2,15 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 public class Board extends JComponent implements KeyListener {
+  public static ArrayList<Monster> myMonsters = new ArrayList<>();
 
+  public static ArrayList<PositionedImage> myMonsterImages = new ArrayList<>();
   public static int turnCounter = 0;
   Hero theHero = new Hero();
   Boss theBoss = new Boss();
-  Monster skeleton1 = new Monster();
-  Monster skeleton2 = new Monster();
-  Monster skeleton3 = new Monster();
   int monsterCounter = 0;
   PositionedImage tile = new PositionedImage("img/floor.png", 0, 0);
   PositionedImage wall = new PositionedImage("img/wall.png", 0, 0);
@@ -18,10 +18,37 @@ public class Board extends JComponent implements KeyListener {
   PositionedImage heroUp = new PositionedImage("img/hero-up.png", theHero.getxPos(), theHero.getyPos());
   PositionedImage heroLeft = new PositionedImage("img/hero-left.png", theHero.getxPos(), theHero.getyPos());
   PositionedImage heroRight = new PositionedImage("img/hero-right.png", theHero.getxPos(), theHero.getyPos());
-  PositionedImage monster1 = new PositionedImage("img/skeleton.png", skeleton1.getxPos(), skeleton1.getyPos());
-  PositionedImage monster2 = new PositionedImage("img/skeleton.png", skeleton2.getxPos(), skeleton2.getyPos());
-  PositionedImage monster3 = new PositionedImage("img/skeleton.png", skeleton3.getxPos(), skeleton3.getyPos());
   PositionedImage boss = new PositionedImage("img/boss.png", theBoss.getxPos(), theBoss.getyPos());
+  public Board() {
+    setPreferredSize(new Dimension(1000, 1000));
+    setVisible(true);
+  }
+
+  public static void main(String[] args) {
+    // Here is how you set up a new window and adding our board to it
+    JFrame frame = new JFrame("RPG Game");
+    Board board = new Board();
+
+    frame.add(board);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setVisible(true);
+    frame.pack();
+    frame.addKeyListener(board);
+  }
+
+  public void fillMonsterList () {
+    for (int i = 0; i < (int) Math.random() * 6 + 1; i++) {
+      myMonsters.add(new Monster());
+    }
+    myMonsters.add(new Boss());
+  }
+
+  public void fillMonsterImagesList () {
+    for (int i = 0; i < myMonsters.size(); i++) {
+      myMonsterImages.add(i, new PositionedImage("img/skeleton.png", myMonsters.get(i).getxPos(), myMonsters.get(i).getyPos()));
+    }
+    myMonsterImages.add(myMonsterImages.size() - 1, new PositionedImage("img/boss.png", 0, 0);
+  }
 
   public void combat (Monster myMonster) {
     while (!theHero.isDead() && !myMonster.isDead()) {
@@ -44,11 +71,6 @@ public class Board extends JComponent implements KeyListener {
       aMonster.setPosX(aMonster.getPosX() - 70);
       aSkeleton.setxPos(aSkeleton.getxPos() - 70);
     }
-  }
-
-  public Board() {
-    setPreferredSize(new Dimension(1000, 1000));
-    setVisible(true);
   }
 
   public void adjustPositions () {
@@ -82,25 +104,27 @@ public class Board extends JComponent implements KeyListener {
       theHero.setCurrentHp((int) (Math.min(theHero.getCurrentHp() + theHero.getHp() * 0.1, theHero.getHp())));
     }
     monsterCounter = 0;
-    resetStats(skeleton1);
-    resetStats(skeleton2);
-    resetStats(skeleton3);
-    resetStats(theBoss);
+    levelUpCharacters(myMonsters);
+
   }
 
-  public void resetStats (Monster toLevelUp) {
-    toLevelUp.setDead(false);
-    toLevelUp.setLevel(theHero.getLevel());
-    toLevelUp.setHp(skeleton1.getLevel() * 2 * Character.rollDie());
-    toLevelUp.setCurrentHp(skeleton1.getHp());
-    toLevelUp.setDp(skeleton2.getLevel() / 2 * Character.rollDie());
-    toLevelUp.setSp(skeleton2.getLevel() * Character.rollDie());
+  public void levelUpCharacters(ArrayList<Monster> characterList) {
+    for (int i = 0; i < characterList.size(); i++) {
+      characterList.get(i).setDead(false);
+      characterList.get(i).setLevel(characterList.get(i).getLevel());
+      characterList.get(i).setHp(characterList.get(i).getLevel() * 2 * Character.rollDie());
+      characterList.get(i).setCurrentHp(characterList.get(i).getHp());
+      characterList.get(i).setDp(characterList.get(i).getLevel() / 2 * Character.rollDie());
+      characterList.get(i).setSp(characterList.get(i).getLevel() * Character.rollDie());
+    }
   }
 
   @Override
   public void paint(Graphics graphics) {
 
     super.paint(graphics);
+    fillMonsterList();
+    fillMonsterImagesList();
     skeleton3.setHasKey(true);
     if (theHero.isHasKey() && theBoss.isDead()) {
       reset();
@@ -192,18 +216,6 @@ public class Board extends JComponent implements KeyListener {
     graphics.drawString("nr2: " + skeleton2.getCurrentHp() + " " + skeleton2.getDp() + " " + skeleton2.getSp() + " " + skeleton2.isDead() + skeleton2.getLevel(), 100, 795);
     graphics.drawString("nr3: " + skeleton3.getCurrentHp() + " " + skeleton3.getDp() + " " + skeleton3.getSp() + " " + skeleton3.isDead() + skeleton3.getLevel(), 100, 810);
     graphics.drawString("Boss: " + theBoss.getCurrentHp() + " " + theBoss.getDp() + " " + theBoss.getSp() + " " + theBoss.isDead() + theBoss.getLevel(), 100, 825);
-  }
-
-  public static void main(String[] args) {
-    // Here is how you set up a new window and adding our board to it
-    JFrame frame = new JFrame("RPG Game");
-    Board board = new Board();
-
-    frame.add(board);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setVisible(true);
-    frame.pack();
-    frame.addKeyListener(board);
   }
 
   // To be a KeyListener the class needs to have these 3 methods in it
