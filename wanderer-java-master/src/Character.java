@@ -20,7 +20,6 @@ public abstract class Character implements KeyListener {
   }
 
   public void bothStrike(Hero myHero, Monster myMonster) {
-    System.out.println("bothStrike entered");
     int dmgTemp;
 
     if (/*myHero.getSp() + 2 * rollDie() > myMonster.getDp()*/ true) {

@@ -1,9 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Timer;
 
 public class Board extends JComponent implements KeyListener {
   public static ArrayList<Monster> myMonsters = new ArrayList<>();
@@ -27,41 +28,11 @@ public class Board extends JComponent implements KeyListener {
     // Here is how you set up a new window and adding our board to it
     JFrame frame = new JFrame("RPG Game");
     Board board = new Board();
-    java.util.Timer time = new Timer();
-    TimedMovement st = new TimedMovement();
-    time.schedule(st, 0, 3000);
-
     frame.add(board);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setVisible(true);
     frame.pack();
     frame.addKeyListener(board);
-  }
-
-  public void fillMonsterList() {
-    for (int i = 0; i <= (int) (Math.random() * 6 + 2); i++) {
-      myMonsters.add(new Monster());
-      int monsterLevelDecider = (int) (Math.random() * 100) + 1;
-      if (monsterLevelDecider > 60) {
-        myMonsters.get(i).setLevel(myMonsters.get(i).getLevel() + 1);
-      } else if (monsterLevelDecider > 50 && monsterLevelDecider < 60) {
-        myMonsters.get(i).setLevel(myMonsters.get(i).getLevel() + 2);
-      }
-    }
-    myMonsters.add(new Boss());
-  }
-
-  public void fillMonsterImagesList() {
-    for (int i = 0; i < myMonsters.size(); i++) {
-      myMonsterImages.add(i, new PositionedImage("img/skeleton.png", myMonsters.get(i).getxPos(), myMonsters.get(i).getyPos()));
-    }
-    myMonsterImages.add(myMonsterImages.size() - 1, new PositionedImage("img/boss.png", 0, 0));
-  }
-
-  public void combat(Monster myMonster) {
-    while (!theHero.isDead() && !myMonster.isDead()) {
-      theHero.bothStrike(theHero, myMonster);
-    }
   }
 
   public static void moveMonster(PositionedImage aMonster, Monster aSkeleton) {
@@ -78,6 +49,26 @@ public class Board extends JComponent implements KeyListener {
     } else if (!aSkeleton.isDead() && dirDecider == 4 && aMonster.getPosX() != 0 && aMonster.getPosY() % 140 == 0) {
       aMonster.setPosX(aMonster.getPosX() - 70);
       aSkeleton.setxPos(aSkeleton.getxPos() - 70);
+    }
+  }
+
+  public void fillMonsterList() {
+    for (int i = 0; i <= (int) (Math.random() * 6 + 2); i++) {
+      myMonsters.add(new Monster());
+    }
+    myMonsters.add(new Boss());
+  }
+
+  public void fillMonsterImagesList() {
+    for (int i = 0; i < myMonsters.size(); i++) {
+      myMonsterImages.add(i, new PositionedImage("img/skeleton.png", myMonsters.get(i).getxPos(), myMonsters.get(i).getyPos()));
+    }
+    myMonsterImages.add(myMonsterImages.size() - 1, new PositionedImage("img/boss.png", 0, 0));
+  }
+
+  public void combat(Monster myMonster) {
+    while (!theHero.isDead() && !myMonster.isDead()) {
+      theHero.bothStrike(theHero, myMonster);
     }
   }
 
@@ -130,7 +121,15 @@ public class Board extends JComponent implements KeyListener {
   @Override
   public void paint(Graphics graphics) {
     super.paint(graphics);
-    System.out.println(myMonsters.size());
+    ActionListener taskPerformer = evt -> {
+      for (int i = 0; i < myMonsters.size(); i++) {
+        Board.moveMonster(myMonsterImages.get(i), myMonsters.get(i));
+      }
+      repaint();
+    };
+    Timer timer = new Timer(3000 ,taskPerformer);
+    timer.setRepeats(false);
+    timer.start();
     if (myMonsters.isEmpty()) {
       fillMonsterList();
     }
@@ -240,4 +239,6 @@ public class Board extends JComponent implements KeyListener {
     adjustPositions();
     repaint();
   }
+
+
 }
