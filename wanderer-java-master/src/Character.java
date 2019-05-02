@@ -20,6 +20,7 @@ public abstract class Character implements KeyListener {
   }
 
   public void bothStrike(Hero myHero, Monster myMonster) {
+    System.out.println("bothStrike entered");
     int dmgTemp;
 
     if (/*myHero.getSp() + 2 * rollDie() > myMonster.getDp()*/ true) {
@@ -134,23 +135,23 @@ public abstract class Character implements KeyListener {
   @Override
   public void keyReleased(KeyEvent e) {
 
-    /* if (e.getKeyCode() == KeyEvent.VK_SPACE && this.hero.getPosY() > 0 && this.hero.getPosX() % 140 == 0) {
-      this.hero.setPosY(this.hero.getPosY() - 70);
+    /* if (e.getKeyCode() == KeyEvent.VK_SPACE && this.heroDown.getPosY() > 0 && this.heroDown.getPosX() % 140 == 0) {
+      this.heroDown.setPosY(this.heroDown.getPosY() - 70);
       theHero.setyPos(theHero.getyPos() - 70);
       theHero.setDirection("up");
       turnCounter++;
-    } else if (e.getKeyCode() == KeyEvent.VK_DOWN && this.hero.getPosY() <= 560 && this.hero.getPosX() % 140 == 0) {
-      this.hero.setPosY((this.hero.getPosY() + 70));
+    } else if (e.getKeyCode() == KeyEvent.VK_DOWN && this.heroDown.getPosY() <= 560 && this.heroDown.getPosX() % 140 == 0) {
+      this.heroDown.setPosY((this.heroDown.getPosY() + 70));
       theHero.setyPos(theHero.getyPos() + 70);
       theHero.setDirection("down");
       turnCounter++;
-    } else if (e.getKeyCode() == KeyEvent.VK_LEFT && this.hero.getPosX() > 0 && this.hero.getPosY() % 140 == 0) {
-      this.hero.setPosX(this.hero.getPosX() - 70);
+    } else if (e.getKeyCode() == KeyEvent.VK_LEFT && this.heroDown.getPosX() > 0 && this.heroDown.getPosY() % 140 == 0) {
+      this.heroDown.setPosX(this.heroDown.getPosX() - 70);
       theHero.setxPos(theHero.getxPos() - 70);
       theHero.setDirection("left");
       turnCounter++;
-    } else if (e.getKeyCode() == KeyEvent.VK_RIGHT && this.hero.getPosX() <= 560 && this.hero.getPosY() % 140 == 0) {
-      this.hero.setPosX(this.hero.getPosX() + 70);
+    } else if (e.getKeyCode() == KeyEvent.VK_RIGHT && this.heroDown.getPosX() <= 560 && this.heroDown.getPosY() % 140 == 0) {
+      this.heroDown.setPosX(this.heroDown.getPosX() + 70);
       theHero.setxPos(theHero.getxPos() + 70);
       theHero.setDirection("right");
       turnCounter++; */
