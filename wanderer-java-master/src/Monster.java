@@ -5,5 +5,7 @@ public class Monster extends Character {
     this.setCurrentHp(this.getHp());
     this.setDp(this.getLevel() / 2 * rollDie());
     this.setSp(this.getLevel() * rollDie());
+    this.setxPos(0);
+    this.setyPos(210);
   }
 }

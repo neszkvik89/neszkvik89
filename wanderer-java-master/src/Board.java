@@ -35,7 +35,7 @@ public class Board extends JComponent implements KeyListener {
   }
 
   public void fillMonsterList() {
-    for (int i = 0; i < (int) Math.random() * 6 + 1; i++) {
+    for (int i = 0; i <= (int) (Math.random() * 6 + 2); i++) {
       myMonsters.add(new Monster());
     }
     myMonsters.add(new Boss());
@@ -120,13 +120,14 @@ public class Board extends JComponent implements KeyListener {
   @Override
   public void paint(Graphics graphics) {
     super.paint(graphics);
+    System.out.println(myMonsters.size());
     if (myMonsters.isEmpty()) {
       fillMonsterList();
     }
     if (myMonsterImages.isEmpty()) {
       fillMonsterImagesList();
     }
-    
+
     myMonsters.get(myMonsters.size() - 1).setHasKey(true);
     if (theHero.isHasKey() && myMonsters.get(myMonsters.size() - 1).isDead()) {
       reset();
@@ -147,14 +148,14 @@ public class Board extends JComponent implements KeyListener {
             monsterCounter++;
           }
         }
+        tile.setPosX(tile.getPosX() + 70);
+        wall.setPosX(wall.getPosX() + 70);
       }
-      tile.setPosX(tile.getPosX() + 70);
-      wall.setPosX(wall.getPosX() + 70);
+      tile.setPosY(tile.getPosY() + 70);
+      wall.setPosY(wall.getPosY() + 70);
+      tile.setPosX(0);
+      wall.setPosX(0);
     }
-    tile.setPosY(tile.getPosY() + 70);
-    wall.setPosY(wall.getPosY() + 70);
-    tile.setPosX(0);
-    wall.setPosX(0);
 
     if(theHero.getDirection().equals("down")) {
     heroDown.draw(graphics);
