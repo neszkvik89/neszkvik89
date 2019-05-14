@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ex11 {
   public static void main(String[] args) {
@@ -17,6 +18,7 @@ public class ex11 {
   public static HashMap<String, Integer> mostCommonWords (String fileLocation) throws IOException {
     HashMap<String, Integer> myMap = new HashMap<>();
     List<Character> toAvoid = Arrays.asList(';', '.', ',', ':', '[', ']', '(', ')');
+    List<String> wordsInTheText = new ArrayList<>();
     Path filePath = Paths.get(fileLocation);
     Path secondFilePath = Paths.get("src/text2.txt");
     String theWholeText = Files.readString(filePath);
@@ -31,8 +33,25 @@ public class ex11 {
 
     theWholeText = sb.toString();
     Files.writeString(secondFilePath, theWholeText);
-    Scanner sc = new Scanner()
+    Scanner sc = new Scanner(secondFilePath);
+    sc.useDelimiter(" ");
+    while (sc.hasNext()) {
+      wordsInTheText.add(sc.next());
+    }
 
+
+
+    for (int i = 0; i < wordsInTheText.size(); i++) {
+      if (myMap.containsKey(wordsInTheText.get(i))) {
+        myMap.replace(wordsInTheText.get(i), myMap.get(wordsInTheText.get(i)) + 1);
+      } else {
+        myMap.put(wordsInTheText.get(i), 1);
+      }
+    }
+
+    System.out.println(myMap.entrySet().stream()
+        .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+        .collect(Collectors.toList()));
     return myMap;
   }
 }
