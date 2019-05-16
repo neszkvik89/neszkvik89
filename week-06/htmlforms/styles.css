@@ -1,0 +1,62 @@
+body {
+    margin-left: 37%;
+    color: gray;
+    background-color: lightgray;
+}
+
+form {
+    background-color: white;
+    width: 400px;
+    height: 450px;
+}
+
+h2 {
+    margin-bottom: 35px;
+    padding-top:  60px;
+    margin-left: 35px;
+}
+input:focus {
+    border-color: greenyellow;
+}
+
+input {
+    margin-left: 35px;
+    display: block;
+    margin-bottom: 25px;
+    height: 30px;
+    width: 300px;
+    display: block;
+}
+input[type=text]:focus {
+    background-color: aliceblue;
+}
+
+label {
+    margin-left: 35px;
+    display: block;
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+.button {
+    margin-left: 35px;
+    margin-top: 45px;
+    width: 115px;
+    height: 50px;
+    color: white;
+    background-color: slategrey;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+}
+
+.pwfield {
+    margin-left: 35px;
+    background: white url(https://img.icons8.com/metro/26/000000/visible.png) right no-repeat;
+    padding-left: 17px;
+}
+
+#forgotpw {
+    margin-left: 275px;
+
+}
