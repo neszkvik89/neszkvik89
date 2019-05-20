@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf Exercise #</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+    <meta charset="utf-8" />
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Balance</th>
+        <th>AnimalType</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+        <td th:text="${myBankAccount.name}"></td>
+        <td th:text="|${myBankAccount.balance},00 Zebra |"></td>
+        <td th:text="${myBankAccount.animalType}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

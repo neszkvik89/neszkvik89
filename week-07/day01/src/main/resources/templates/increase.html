@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf Exercise #</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+    <meta charset="utf-8" />
+</head>
+<body>
+
+
+    <form action="http://localhost:8080/list" method="POST">
+        <h1>Give money to a character</h1>
+        <fieldset>
+            <legend>Selecting elements</legend>
+            <p>
+                <label>Select list</label>
+                <select th:field="*{bankAccounts}" name="name">
+                    <option th:each= "animal : ${bankAccounts}" th:value="${animal.name}" th:text="${animal.name}">
+                    </option>
+                </select>
+            </p>
+        </fieldset>
+        <button type="submit">Give him money!</button>
+    </form>
+
+</body>
+</html>

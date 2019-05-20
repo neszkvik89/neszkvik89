@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head :: copy"></div>
+<body>
+
+<div th:replace="fragments/header :: copy"></div>
+<div th:replace="fragments/nav :: copy"></div>
+
+<main>
+    <div class="container">
+        <h2 th:text="${result}"></h2>
+    </div>
+</main>
+
+</body>
+</html>

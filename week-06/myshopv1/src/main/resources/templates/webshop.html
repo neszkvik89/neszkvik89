@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head :: copy"></div>
+<body>
+
+<div th:replace="fragments/header :: copy"></div>
+<div th:replace="fragments/nav :: copy"></div>
+
+<main>
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity of stock</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="shopItem : ${shoppingList}">
+                <tr>
+                    <td th:text="${shopItem.getName()}"></td>
+                    <td th:text="${shopItem.getDescription()}"></td>
+                    <td th:text="${shopItem.getPrice()}"></td>
+                    <td th:text="${shopItem.getStock()}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+</body>
+</html>
