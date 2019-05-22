@@ -17,9 +17,5 @@ public class IncreaseController {
     return "increase";
   }
 
-  @PostMapping("/list")
-  public String accept(@ModelAttribute String name) {
-    
 
-  }
 }

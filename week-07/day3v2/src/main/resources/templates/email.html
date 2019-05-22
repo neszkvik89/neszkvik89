@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf Exercise #</title>
+    <link rel="stylesheet" th:href="@{/static/style.css}" />
+    <meta charset="utf-8" />
+</head>
+<body>
+<div id="optionsList">
+    <div class="option">
+        <form th:action="@{/useful/email}" th:method="post">
+            <input type="text"
+                   id="email"
+                   name="email"
+                   placeholder=" email"
+                   required>
+            <button type="submit">CHECK IF IT IS AN EMAIL</button>
+        </form>
+        <span th:if="${ != null}">
+                    <p th:if="${}" th:text="'The email address ' + ${} + ' is valid.'">
+                    <p th:if="${!} " th:text="'The email address ' + ${} + ' is NOT valid.'"/>
+                </span>
+    </div>
+</body>
+</html>
