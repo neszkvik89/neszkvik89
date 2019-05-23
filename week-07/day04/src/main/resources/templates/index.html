@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf Exercise #</title>
+    <link rel="stylesheet" th:href="@{/static/style.css}" />
+    <meta charset="utf-8" />
+</head>
+<body>
+<a href="http://localhost:8080/info"> Information </a>
+    <img src="../images/greenfox.png">
+
+<span> Your pets name is </span> <p th:text="${name}"> </p>
+<p> Currently living on these two things :</p>
+<p th:text="${food}"></p>
+<p th:text="${drink}"></p>
+<p>Number of tricks learned so far: </p>
+<p th:text="${nrOfTricks}"></p>
+
+<h2> Known tricks </h2>
+<p th:text="${listOfTricks}"></p>
+</body>
+</html>
