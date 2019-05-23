@@ -15,22 +15,27 @@ public class MainController {
   List<Fox> myFoxes = new ArrayList<>();
 
   @GetMapping("/")
-  public String index (@RequestParam (name = "name", required = false) String name, Model model) {
+  public String index (@RequestParam (name = "name", required = false) String name,
+                       @RequestParam (name = "food", required = false) String food,
+                       @RequestParam (name = "drink", required = false) String drink,
+                       @RequestParam (name = "trick", required = false) String trick, Model model) {
 
-    if (name == null) {
+    if (name == null && food == null && trick == null) {
       return "login";
-    } else {
+    } else if (food == null && trick == null){
       myFoxes.add(new Fox(name));
-      model.addAttribute("name", name);
+    }
+      model.addAttribute("name", myFoxes.get(myFoxes.size() - 1).getName());
       model.addAttribute("nrOfTricks", myFoxes.get(myFoxes.size() - 1).getTricks().size());
       model.addAttribute("listOfTricks", myFoxes.get(myFoxes.size() - 1).getTricks());
       model.addAttribute("listOfFoods", myFoxes.get(myFoxes.size() - 1).getDiet());
       model.addAttribute("food", myFoxes.get(myFoxes.size() - 1).getDiet()[0]);
       model.addAttribute("drink", myFoxes.get(myFoxes.size() - 1).getDiet()[1]);
+    System.out.println(model.asMap());
 
       return "index";
     }
-  }
+
 
 
   @GetMapping("/login")
@@ -49,12 +54,26 @@ public class MainController {
     myFoxes.get(myFoxes.size() - 1).getDiet()[1] = drink;
     System.out.println(myFoxes.get(myFoxes.size() - 1).getDiet()[0]);
     System.out.println(myFoxes.get(myFoxes.size() - 1).getDiet()[1]);
-    return "redirect:/?name=" + myFoxes.get(myFoxes.size() - 1).getName();
+    return "redirect:/?name=" + myFoxes.get(myFoxes.size() - 1).getName() + "?food=" + food + "?drink=" + drink;
+  }
 
+  @PostMapping("/trickCenter")
+  public String learnTrick(String trick) {
+    if (!myFoxes.get(myFoxes.size() - 1).getTricks().contains(trick)) {
+      myFoxes.get(myFoxes.size() - 1).getTricks().add(trick);
+    }
+    return "redirect:/?trick=" + trick + "?food=" + myFoxes.get(myFoxes.size() - 1).getDiet()[0] + "?drink="
+            + myFoxes.get(myFoxes.size() - 1).getDiet()[1] + "?name=" + myFoxes.get(myFoxes.size() - 1).getName();
   }
 
   @GetMapping("/nutritionStore")
   public String eat () {
     return "nutritionStore";
+  }
+
+  @GetMapping("/trickCenter")
+  public String trick() {
+
+    return "trickCenter";
   }
 }

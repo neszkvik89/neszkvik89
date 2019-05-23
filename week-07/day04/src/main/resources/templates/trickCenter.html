@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf Exercise #</title>
+    <link rel="stylesheet" th:href="@{/static/style.css}" />
+    <meta charset="utf-8" />
+</head>
+<body>
+<h1>Trick center</h1>
+<form action="/trickCenter" method="post">
+    <select name = "trick">
+        <option th:value="'Play'" th:text="Play"></option>
+        <option th:value="'Eat'" th:text="Eat"></option>
+        <option th:value="'Sleep'" th:text="Sleep"></option>
+        <option th:value="'Catch'" th:text="Catch"></option>
+        <option th:value="'Hunt'" th:text="Hunt"></option>
+    </select>
+    <input type="submit" value="Choose this trick">
+</form>
+</body>
+</html>

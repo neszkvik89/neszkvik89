@@ -16,8 +16,6 @@ public class Fox {
 
   public Fox(String name) {
     this.name = name;
-    this.tricks.add("Finding cocaine");
-    this.tricks.add("Finding gold");
   }
 
   public Fox(String name, String food, String drink, List<String> tricks) {

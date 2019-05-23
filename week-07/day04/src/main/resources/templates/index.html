@@ -6,10 +6,14 @@
     <meta charset="utf-8" />
 </head>
 <body>
-<a href="http://localhost:8080/info"> Information </a>
-    <img src="../images/greenfox.png">
+<a href="http://localhost:8080/"> Information </a> <br>
+<a href="http://localhost:8080/login"> Login </a> <br>
+<a href="http://localhost:8080/nutritionStore"> Feed your pet </a> <br>
+<a href="http://localhost:8080/trickCenter"> Teach it some tricks </a> <br>
 
-<span> Your pets name is </span> <p th:text="${name}"> </p>
+    <img src="../images/greenfox.png"> <br>
+
+<span> Your pet's name is </span> <p th:text="${name}"> </p>
 <p> Currently living on these two things :</p>
 <p th:text="${food}"></p>
 <p th:text="${drink}"></p>

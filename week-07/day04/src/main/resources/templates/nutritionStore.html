@@ -6,26 +6,23 @@
     <meta charset="utf-8" />
 </head>
 <body>
-<p>Food</p>
+<a href="http://localhost:8080/"> Information </a> <br>
+<a href="http://localhost:8080/login"> Login </a> <br>
+<a href="http://localhost:8080/nutritionStore"> Feed your pet </a> <br>
+<a href="http://localhost:8080/trickCenter"> Teach it some tricks </a> <br>
+<p>Food and drink</p>
 <form action="/nutritionStore" method="post">
-<select name = "food">
-    <option th:value="'Pizza'" th:text="Pizza"></option>
-    <option th:value="'Gyros'" th:text="Gyros"></option>
-    <option th:value="'Salad'" th:text="Salad"></option>
-</select>
-</form>
-
-<p>Drink</p>
-<form action="/nutritionStore" method="post">
+    <select name = "food">
+        <option th:value="'Pizza'" th:text="Pizza"></option>
+        <option th:value="'Gyros'" th:text="Gyros"></option>
+        <option th:value="'Salad'" th:text="Salad"></option>
+    </select>
     <select name = "drink">
         <option th:value="'Tea'" th:text="Tea"></option>
         <option th:value="'Vodka'" th:text="Vodka"></option>
         <option th:value="'Pepsi'" th:text="Pepsi"></option>
     </select>
-    <br><br>
-    <input type="submit", value="Choose these 2">
+    <input type="submit" value="Choose these 2">
 </form>
-
-
 </body>
 </html>
