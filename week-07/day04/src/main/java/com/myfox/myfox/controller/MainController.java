@@ -22,9 +22,12 @@ public class MainController {
 
     if (name == null && food == null && trick == null) {
       return "login";
-    } else if (Fox.myFoxes.size() == 0) {
+    } else if (Fox.myFoxes.size() == 0 || (name != null && !isFoxOnList(name))) {
       Fox.myFoxes.add(new Fox(name));
-      Fox.actionsTaken.add(getTimeStamp() + " " + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName()
+      System.out.println("Fox created!");
+      Fox.nameOfSelectedFox = name;
+      System.out.println(Fox.nameOfSelectedFox);
+      Fox.actionsTaken.add(getTimeStamp() + " " + foxSelector(name).getName()
               + " is the name of your new fox!");
     }
     modelUpdate(model);
@@ -43,11 +46,11 @@ public class MainController {
 
   @PostMapping("/nutritionStore")
   public String diet(String food, String drink) {
-    Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[0] = food;
-    Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1] = drink;
-    System.out.println(Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[0]);
-    System.out.println(Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1]);
-    Fox.actionsTaken.add(getTimeStamp() + " " + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName()
+    foxSelector(Fox.nameOfSelectedFox).getDiet()[0] = food;
+    foxSelector(Fox.nameOfSelectedFox).getDiet()[1] = drink;
+    System.out.println(foxSelector(Fox.nameOfSelectedFox).getDiet()[0]);
+    System.out.println(foxSelector(Fox.nameOfSelectedFox).getDiet()[1]);
+    Fox.actionsTaken.add(getTimeStamp() + " " + foxSelector(Fox.nameOfSelectedFox).getName()
             + " now eats " + food
             + " and drinks " + drink);
     return "redirect:/?name=" + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName()
@@ -56,16 +59,16 @@ public class MainController {
 
   @PostMapping("/trickCenter")
   public String learnTrick(String trick) {
-    if (!Fox.myFoxes.get(Fox.myFoxes.size() - 1).getTricks().contains(trick)) {
-      Fox.myFoxes.get(Fox.myFoxes.size() - 1).getTricks().add(trick);
-      Fox.myFoxes.get(Fox.myFoxes.size() - 1).getAvailableTricks().remove(trick);
-      Fox.actionsTaken.add(getTimeStamp() + " " + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName()
+    if (!foxSelector(Fox.nameOfSelectedFox).getTricks().contains(trick)) {
+      foxSelector(Fox.nameOfSelectedFox).getTricks().add(trick);
+      foxSelector(Fox.nameOfSelectedFox).getAvailableTricks().remove(trick);
+      Fox.actionsTaken.add(getTimeStamp() + " " + foxSelector(Fox.nameOfSelectedFox).getName()
               + " learned " + trick);
       updateLatestActionList();
     }
-    return "redirect:/?trick=" + trick + "&?food=" + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[0] + "&?drink="
-            + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1] + "&?name="
-            + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName();
+    return "redirect:/?trick=" + trick + "&?food=" + foxSelector(Fox.nameOfSelectedFox).getDiet()[0] + "&?drink="
+            + foxSelector(Fox.nameOfSelectedFox).getDiet()[1] + "&?name="
+            + foxSelector(Fox.nameOfSelectedFox).getName();
   }
 
   @GetMapping("/nutritionStore")
@@ -96,13 +99,13 @@ public class MainController {
   @ModelAttribute
   public void modelUpdate(Model model) {
     if (Fox.myFoxes.size() != 0) {
-      model.addAttribute("name", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName());
-      model.addAttribute("nrOfTricks", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getTricks().size());
-      model.addAttribute("listOfTricks", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getTricks());
-      model.addAttribute("listOfFoods", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet());
-      model.addAttribute("food", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[0]);
-      model.addAttribute("drink", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1]);
-      model.addAttribute("availableTricks", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getAvailableTricks());
+      model.addAttribute("name", foxSelector(Fox.nameOfSelectedFox).getName());
+      model.addAttribute("nrOfTricks", foxSelector(Fox.nameOfSelectedFox).getTricks().size());
+      model.addAttribute("listOfTricks", foxSelector(Fox.nameOfSelectedFox).getTricks());
+      model.addAttribute("listOfFoods", foxSelector(Fox.nameOfSelectedFox).getDiet());
+      model.addAttribute("food", foxSelector(Fox.nameOfSelectedFox).getDiet()[0]);
+      model.addAttribute("drink", foxSelector(Fox.nameOfSelectedFox).getDiet()[1]);
+      model.addAttribute("availableTricks", foxSelector(Fox.nameOfSelectedFox).getAvailableTricks());
       model.addAttribute("actionHistory", Fox.actionsTaken);
       model.addAttribute("latestActions", Fox.latestActions);
     }
@@ -114,5 +117,25 @@ public class MainController {
         Fox.latestActions[i] = Fox.actionsTaken.get(Fox.actionsTaken.size() - i - 1);
       }
     }
+  }
+
+  public Fox foxSelector(String nameOfFox) {
+    int k = 0;
+    for (int i = 0; i < Fox.myFoxes.size(); i++){
+      if (Fox.myFoxes.get(i).getName().equals(nameOfFox)) {
+        k = i;
+        break;
+      }
+    }
+    return Fox.myFoxes.get(k);
+  }
+
+  public boolean isFoxOnList (String nameOfFox) {
+    for (int i = 0; i < Fox.myFoxes.size(); i++) {
+      if (Fox.myFoxes.get(i).getName().equals(nameOfFox)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

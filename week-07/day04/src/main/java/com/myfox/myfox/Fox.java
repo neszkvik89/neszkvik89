@@ -16,6 +16,7 @@ public class Fox {
   public static List<Fox> myFoxes = new ArrayList<>();
   public static List<String> actionsTaken = new ArrayList<>();
   public static String [] latestActions = new String[5];
+  public static String nameOfSelectedFox = "";
 
   public Fox() {
   }
