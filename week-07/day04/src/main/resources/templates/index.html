@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
 </head>
 <body>
-<a href="http://localhost:8080/"> Information </a> <br>
+
 <a href="http://localhost:8080/login"> Login </a> <br>
 <a href="http://localhost:8080/nutritionStore"> Feed your pet </a> <br>
 <a href="http://localhost:8080/trickCenter"> Teach it some tricks </a> <br>
@@ -22,5 +22,6 @@
 
 <h2> Known tricks </h2>
 <p th:text="${listOfTricks}"></p>
+<p th:if="${listOfTricks.size() == 4}"> Your pet has learned all the available tricks, yay! </p>
 </body>
 </html>

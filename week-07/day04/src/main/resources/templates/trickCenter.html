@@ -2,20 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Thymeleaf Exercise #</title>
-    <link rel="stylesheet" th:href="@{/static/style.css}" />
-    <meta charset="utf-8" />
+    <link rel="stylesheet" th:href="@{/static/style.css}"/>
+    <meta charset="utf-8"/>
 </head>
 <body>
+
+<a href="http://localhost:8080/login"> Login </a> <br>
+<a href="http://localhost:8080/nutritionStore"> Feed your pet </a> <br>
+<a href="http://localhost:8080/trickCenter"> Teach it some tricks </a> <br>
+
 <h1>Trick center</h1>
+<p> Select trick to learn </p>
 <form action="/trickCenter" method="post">
-    <select name = "trick">
-        <option th:value="'Play'" th:text="Play"></option>
-        <option th:value="'Eat'" th:text="Eat"></option>
-        <option th:value="'Sleep'" th:text="Sleep"></option>
-        <option th:value="'Catch'" th:text="Catch"></option>
-        <option th:value="'Hunt'" th:text="Hunt"></option>
+    <select name="trick">
+        <option th:each="trick : ${availableTricks}"
+        th:value="${trick}" th:text="${trick}"></option>
     </select>
     <input type="submit" value="Choose this trick">
 </form>
+
 </body>
 </html>

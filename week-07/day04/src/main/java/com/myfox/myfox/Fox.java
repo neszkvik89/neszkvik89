@@ -7,16 +7,20 @@ public class Fox {
   private String name = "";
   private String food = "";
   private String drink = "";
+  List<String> availableTricks = new ArrayList<>();
   List<String> tricks = new ArrayList<>();
   String [] diet = new String[2];
   public static List<Fox> myFoxes = new ArrayList<>();
-
 
   public Fox() {
   }
 
   public Fox(String name) {
     this.name = name;
+    this.availableTricks.add("Eat");
+    this.availableTricks.add("Sleep");
+    this.availableTricks.add("Play");
+    this.availableTricks.add("Catch");
   }
 
   public Fox(String name, String food, String drink, List<String> tricks) {
@@ -65,6 +69,16 @@ public class Fox {
   public void setDiet(String[] diet) {
     this.diet = diet;
   }
+
+  public List<String> getAvailableTricks() {
+    return availableTricks;
+  }
+
+  public void setAvailableTricks(List<String> availableTricks) {
+    this.availableTricks = availableTricks;
+  }
 }
+
+
 
 
