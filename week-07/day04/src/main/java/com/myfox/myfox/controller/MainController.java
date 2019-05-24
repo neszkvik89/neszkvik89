@@ -12,7 +12,7 @@ import java.util.List;
 
 @Controller
 public class MainController {
-  static List<Fox> myFoxes = new ArrayList<>();
+
 
   @GetMapping("/")
   public String index (@RequestParam (name = "name", required = false) String name,
@@ -22,17 +22,20 @@ public class MainController {
 
     if (name == null && food == null && trick == null) {
       return "login";
-    } else if (food == null && trick == null){
-      myFoxes.add(new Fox(name));
+    } else if (Fox.myFoxes.size() == 0){
+      Fox.myFoxes.add(new Fox(name));
     }
-      model.addAttribute("name", myFoxes.get(myFoxes.size() - 1).getName());
-      model.addAttribute("nrOfTricks", myFoxes.get(myFoxes.size() - 1).getTricks().size());
-      model.addAttribute("listOfTricks", myFoxes.get(myFoxes.size() - 1).getTricks());
-      model.addAttribute("listOfFoods", myFoxes.get(myFoxes.size() - 1).getDiet());
-      model.addAttribute("food", myFoxes.get(myFoxes.size() - 1).getDiet()[0]);
-      model.addAttribute("drink", myFoxes.get(myFoxes.size() - 1).getDiet()[1]);
+      model.addAttribute("name", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName());
+      model.addAttribute("nrOfTricks", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getTricks().size());
+      model.addAttribute("listOfTricks", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getTricks());
+      model.addAttribute("listOfFoods", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet());
+      model.addAttribute("food", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[0]);
+      model.addAttribute("drink", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1]);
+    /* had these lines for testing purposes
     System.out.println(model.asMap());
-
+    System.out.println(Fox.myFoxes.size());
+    System.out.println(Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[0]);
+    System.out.println(Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1]); */
       return "index";
     }
 
@@ -50,20 +53,20 @@ public class MainController {
 
   @PostMapping("/nutritionStore")
   public String diet (String food, String drink){
-    myFoxes.get(myFoxes.size() - 1).getDiet()[0] = food;
-    myFoxes.get(myFoxes.size() - 1).getDiet()[1] = drink;
-    System.out.println(myFoxes.get(myFoxes.size() - 1).getDiet()[0]);
-    System.out.println(myFoxes.get(myFoxes.size() - 1).getDiet()[1]);
-    return "redirect:/?name=" + myFoxes.get(myFoxes.size() - 1).getName() + "&?food=" + food + "&?drink=" + drink;
+    Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[0] = food;
+    Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1] = drink;
+    System.out.println(Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[0]);
+    System.out.println(Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1]);
+    return "redirect:/?name=" + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName() + "&?food=" + food + "&?drink=" + drink;
   }
 
   @PostMapping("/trickCenter")
   public String learnTrick(String trick) {
-    if (!myFoxes.get(myFoxes.size() - 1).getTricks().contains(trick)) {
-      myFoxes.get(myFoxes.size() - 1).getTricks().add(trick);
+    if (!Fox.myFoxes.get(Fox.myFoxes.size() - 1).getTricks().contains(trick)) {
+      Fox.myFoxes.get(Fox.myFoxes.size() - 1).getTricks().add(trick);
     }
-    return "redirect:/?trick=" + trick + "&?food=" + myFoxes.get(myFoxes.size() - 1).getDiet()[0] + "&?drink="
-            + myFoxes.get(myFoxes.size() - 1).getDiet()[1] + "&?name=" + myFoxes.get(myFoxes.size() - 1).getName();
+    return "redirect:/?trick=" + trick + "&?food=" + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[0] + "&?drink="
+            + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1] + "&?name=" + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName();
   }
 
   @GetMapping("/nutritionStore")

@@ -9,6 +9,7 @@ public class Fox {
   private String drink = "";
   List<String> tricks = new ArrayList<>();
   String [] diet = new String[2];
+  public static List<Fox> myFoxes = new ArrayList<>();
 
 
   public Fox() {
@@ -65,3 +66,5 @@ public class Fox {
     this.diet = diet;
   }
 }
+
+
