@@ -12,17 +12,10 @@
 <a href="http://localhost:8080/trickCenter"> Teach it some tricks </a> <br>
 <a href="http://localhost:8080/actionHistory"> Action history </a> <br>
 
-    <img src="../images/greenfox.png"> <br>
 
-<span> Your pet's name is </span> <p th:text="${name}"> </p>
-<p> Currently living on these two things :</p>
-<p th:text="${food}"></p>
-<p th:text="${drink}"></p>
-<p>Number of tricks learned so far: </p>
-<p th:text="${nrOfTricks}"></p>
-
-<h2> Known tricks </h2>
-<p th:text="${listOfTricks}"></p>
-<p th:if="${listOfTricks.size() == 4}"> Your pet has learned all the available tricks, yay! </p>
+<h1> Action history </h1>
+<ul th:each="action : ${actionHistory}">
+    <li th:value="${action}" th:text="${action}"> </li>
+</ul>
 </body>
 </html>

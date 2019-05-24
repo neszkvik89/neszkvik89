@@ -10,6 +10,7 @@
 <a href="http://localhost:8080/login"> Login </a> <br>
 <a href="http://localhost:8080/nutritionStore"> Feed your pet </a> <br>
 <a href="http://localhost:8080/trickCenter"> Teach it some tricks </a> <br>
+<a href="http://localhost:8080/actionHistory"> Action history </a> <br>
 <p>Food and drink</p>
 <form action="/nutritionStore" method="post">
     <select name = "food">
@@ -17,7 +18,7 @@
         <option th:value="'Gyros'" th:text="Gyros"></option>
         <option th:value="'Salad'" th:text="Salad"></option>
     </select>
-    <select name = "drink">
+    <select name = "drink" >
         <option th:value="'Tea'" th:text="Tea"></option>
         <option th:value="'Vodka'" th:text="Vodka"></option>
         <option th:value="'Pepsi'" th:text="Pepsi"></option>

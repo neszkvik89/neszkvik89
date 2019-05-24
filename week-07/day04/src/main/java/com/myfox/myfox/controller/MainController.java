@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
+import java.sql.Timestamp;
+
+
 @Controller
 public class MainController {
-
 
   @GetMapping("/")
   public String index(@RequestParam(name = "name", required = false) String name,
@@ -22,10 +25,10 @@ public class MainController {
       return "login";
     } else if (Fox.myFoxes.size() == 0) {
       Fox.myFoxes.add(new Fox(name));
+      Fox.actionsTaken.add(getTimeStamp() + " " + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName()
+              + " is the name of your new fox!");
     }
-
     modelUpdate(model);
-
     return "index";
   }
 
@@ -46,7 +49,11 @@ public class MainController {
     Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1] = drink;
     System.out.println(Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[0]);
     System.out.println(Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1]);
-    return "redirect:/?name=" + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName() + "&?food=" + food + "&?drink=" + drink;
+    Fox.actionsTaken.add(getTimeStamp() + " " + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName()
+            + " now eats " + food
+            + " and drinks " + drink);
+    return "redirect:/?name=" + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName()
+            + "&?food=" + food + "&?drink=" + drink;
   }
 
   @PostMapping("/trickCenter")
@@ -54,9 +61,12 @@ public class MainController {
     if (!Fox.myFoxes.get(Fox.myFoxes.size() - 1).getTricks().contains(trick)) {
       Fox.myFoxes.get(Fox.myFoxes.size() - 1).getTricks().add(trick);
       Fox.myFoxes.get(Fox.myFoxes.size() - 1).getAvailableTricks().remove(trick);
+      Fox.actionsTaken.add(getTimeStamp() + " " + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName()
+              + " learned " + trick);
     }
     return "redirect:/?trick=" + trick + "&?food=" + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[0] + "&?drink="
-            + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1] + "&?name=" + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName();
+            + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1] + "&?name="
+            + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName();
   }
 
   @GetMapping("/nutritionStore")
@@ -71,6 +81,19 @@ public class MainController {
     return "trickCenter";
   }
 
+  @GetMapping("/actionHistory")
+  public String actions(Model model) {
+    modelUpdate(model);
+    return "actionHistory";
+  }
+
+  public Timestamp getTimeStamp() {
+    Date date = new Date();
+    long time = date.getTime();
+    Timestamp ts = new Timestamp(time);
+    return ts;
+  }
+
   @ModelAttribute
   public void modelUpdate(Model model) {
     if (Fox.myFoxes.size() != 0) {
@@ -81,6 +104,7 @@ public class MainController {
       model.addAttribute("food", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[0]);
       model.addAttribute("drink", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1]);
       model.addAttribute("availableTricks", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getAvailableTricks());
+      model.addAttribute("actionHistory", Fox.actionsTaken);
     }
   }
 }

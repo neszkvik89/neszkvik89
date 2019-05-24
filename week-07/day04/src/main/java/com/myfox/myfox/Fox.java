@@ -11,6 +11,7 @@ public class Fox {
   List<String> tricks = new ArrayList<>();
   String [] diet = new String[2];
   public static List<Fox> myFoxes = new ArrayList<>();
+  public static List<String> actionsTaken = new ArrayList<>();
 
   public Fox() {
   }
@@ -77,6 +78,7 @@ public class Fox {
   public void setAvailableTricks(List<String> availableTricks) {
     this.availableTricks = availableTricks;
   }
+
 }
 
 
