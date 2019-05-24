@@ -24,9 +24,7 @@ public class MainController {
       return "login";
     } else if (Fox.myFoxes.size() == 0 || (name != null && !isFoxOnList(name))) {
       Fox.myFoxes.add(new Fox(name));
-      System.out.println("Fox created!");
       Fox.nameOfSelectedFox = name;
-      System.out.println(Fox.nameOfSelectedFox);
       Fox.actionsTaken.add(getTimeStamp() + " " + foxSelector(name).getName()
               + " is the name of your new fox!");
     }
@@ -49,8 +47,6 @@ public class MainController {
   public String diet(String food, String drink) {
     foxSelector(Fox.nameOfSelectedFox).getDiet()[0] = food;
     foxSelector(Fox.nameOfSelectedFox).getDiet()[1] = drink;
-    System.out.println(foxSelector(Fox.nameOfSelectedFox).getDiet()[0]);
-    System.out.println(foxSelector(Fox.nameOfSelectedFox).getDiet()[1]);
     Fox.actionsTaken.add(getTimeStamp() + " " + foxSelector(Fox.nameOfSelectedFox).getName()
             + " now eats " + food
             + " and drinks " + drink);
