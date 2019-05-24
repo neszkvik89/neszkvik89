@@ -8,18 +8,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class CaesarController {
 
+  private UtilityService utilityService;
 
-    private UtilityService utilityService;
-
-    @Autowired
-    CaesarController(UtilityService utilityService) {
-      this.utilityService = utilityService;
-    }
-
-    @GetMapping("/useful/caesar")
-    public String caesar (Model model){
-      model.addAttribute("color", utilityService.randomColor());
-      return "caesar";
-    }
+  @Autowired
+  CaesarController(UtilityService utilityService) {
+    this.utilityService = utilityService;
   }
+
+  @GetMapping("/useful/caesar")
+  public String caesar(Model model) {
+    model.addAttribute("color", utilityService.randomColor());
+    return "caesar";
+  }
+}
 
