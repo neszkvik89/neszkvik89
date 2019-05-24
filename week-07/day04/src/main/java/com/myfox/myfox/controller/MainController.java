@@ -41,6 +41,7 @@ public class MainController {
 
   @PostMapping("/login")
   public String namePet(String name) {
+    Fox.nameOfSelectedFox = name;
     return "redirect:/?name=" + name;
   }
 
