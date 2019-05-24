@@ -12,7 +12,7 @@ import java.util.List;
 
 @Controller
 public class MainController {
-  List<Fox> myFoxes = new ArrayList<>();
+  static List<Fox> myFoxes = new ArrayList<>();
 
   @GetMapping("/")
   public String index (@RequestParam (name = "name", required = false) String name,
@@ -54,7 +54,7 @@ public class MainController {
     myFoxes.get(myFoxes.size() - 1).getDiet()[1] = drink;
     System.out.println(myFoxes.get(myFoxes.size() - 1).getDiet()[0]);
     System.out.println(myFoxes.get(myFoxes.size() - 1).getDiet()[1]);
-    return "redirect:/?name=" + myFoxes.get(myFoxes.size() - 1).getName() + "?food=" + food + "?drink=" + drink;
+    return "redirect:/?name=" + myFoxes.get(myFoxes.size() - 1).getName() + "&?food=" + food + "&?drink=" + drink;
   }
 
   @PostMapping("/trickCenter")
@@ -62,8 +62,8 @@ public class MainController {
     if (!myFoxes.get(myFoxes.size() - 1).getTricks().contains(trick)) {
       myFoxes.get(myFoxes.size() - 1).getTricks().add(trick);
     }
-    return "redirect:/?trick=" + trick + "?food=" + myFoxes.get(myFoxes.size() - 1).getDiet()[0] + "?drink="
-            + myFoxes.get(myFoxes.size() - 1).getDiet()[1] + "?name=" + myFoxes.get(myFoxes.size() - 1).getName();
+    return "redirect:/?trick=" + trick + "&?food=" + myFoxes.get(myFoxes.size() - 1).getDiet()[0] + "&?drink="
+            + myFoxes.get(myFoxes.size() - 1).getDiet()[1] + "&?name=" + myFoxes.get(myFoxes.size() - 1).getName();
   }
 
   @GetMapping("/nutritionStore")
