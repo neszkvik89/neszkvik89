@@ -23,6 +23,11 @@
 
 <h2> Known tricks </h2>
 <p th:text="${listOfTricks}"></p>
-<p th:if="${listOfTricks.size() == 4}"> Your pet has learned all the available tricks, yay! </p>
+<p th:if="${listOfTricks.size() == 4}"> Your pet has learned all the available tricks, yay! </p> <br>
+
+<ul th:each="latestAction : ${latestActions}">
+    <li th:if="${actionHistory.size() == 0}"> No actions have been taken yet! </li>
+    <li th:value="${latestAction}" th:text="${latestAction}"> </li>
+</ul>
 </body>
 </html>

@@ -63,6 +63,7 @@ public class MainController {
       Fox.myFoxes.get(Fox.myFoxes.size() - 1).getAvailableTricks().remove(trick);
       Fox.actionsTaken.add(getTimeStamp() + " " + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getName()
               + " learned " + trick);
+      updateLatestActionList();
     }
     return "redirect:/?trick=" + trick + "&?food=" + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[0] + "&?drink="
             + Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1] + "&?name="
@@ -105,6 +106,15 @@ public class MainController {
       model.addAttribute("drink", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getDiet()[1]);
       model.addAttribute("availableTricks", Fox.myFoxes.get(Fox.myFoxes.size() - 1).getAvailableTricks());
       model.addAttribute("actionHistory", Fox.actionsTaken);
+      model.addAttribute("latestActions", Fox.latestActions);
+    }
+  }
+
+  public void updateLatestActionList() {
+    for (int i = 0; i < 5; i++) {
+      if (Fox.actionsTaken.size() > i) {
+        Fox.latestActions[i] = Fox.actionsTaken.get(Fox.actionsTaken.size() - i - 1);
+      }
     }
   }
 }
