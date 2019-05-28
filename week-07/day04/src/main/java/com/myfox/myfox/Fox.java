@@ -7,9 +7,9 @@ import java.util.List;
 
 @Service
 public class Fox {
-  private String name = "";
-  private String food = "";
-  private String drink = "";
+  private String name;
+  private String food;
+  private String drink;
   List<String> availableTricks = new ArrayList<>();
   List<String> tricks = new ArrayList<>();
   String [] diet = new String[2];
