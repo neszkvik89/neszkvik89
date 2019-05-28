@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -24,14 +26,31 @@ public class TodoController {
     this.todoService = iToDoService;
   }
 
-  @GetMapping("/todo")
-  public String todo () {
-    return "todo";
+  @GetMapping("/todo/add")
+  public String add (){
+    return "add";
   }
 
-  @GetMapping(value = {"/", "/list"})
+  @PostMapping("/todo/add")
+  public String addTodoToRepo(String todo, Model model) {
+    iTodoRepository.save(new Todo(todo));
+    model.addAttribute("todos", iTodoRepository.findAll());
+    return "todolist";
+  }
+
+  @GetMapping(value = "/{id}/delete")
+  public String delete (@PathVariable ("id") long id, Model model) {
+    if (id != 0) {
+      iTodoRepository.deleteById(id);
+      model.addAttribute("todos", iTodoRepository.findAll());
+    }
+    return "todolist";
+  }
+
+  @GetMapping(value = {"/", "/list", "/todo"})
   public String list (@RequestParam(name = "isActive", required = false) boolean isActive, Model model) {
     List<Todo> myTodos = new ArrayList<>();
+
     if (!isActive) {
       model.addAttribute("todos", iTodoRepository.findAll());
     } else {
