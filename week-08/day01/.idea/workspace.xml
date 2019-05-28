@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ef48a00d-d898-46bd-a0ef-2c834775b4c9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/day01.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../ferrilata-foundation-normal-exam" beforeDir="false" afterPath="$PROJECT_DIR$/../../ferrilata-foundation-normal-exam" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../week-07/day04/src/main/java/com/myfox/myfox/Fox.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../week-07/day04/src/main/java/com/myfox/myfox/Fox.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -138,6 +136,7 @@
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
@@ -211,7 +210,7 @@
       <option name="presentableId" value="Default" />
       <updated>1558941338951</updated>
       <workItem from="1558941341119" duration="3438000" />
-      <workItem from="1559026381859" duration="578000" />
+      <workItem from="1559026381859" duration="622000" />
     </task>
     <servers />
   </component>
@@ -230,7 +229,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4016000" />
+    <option name="totallyTimeSpent" value="4060000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="47" width="1608" height="820" extended-state="0" />
