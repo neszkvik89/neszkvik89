@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf Exercise #</title>
+    <link rel="stylesheet" th:href="@{/static/style.css}" />
+    <meta charset="utf-8" />
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 1px;
+        }
+    </style>
+</head>
+<body>
+<h1> Updated todoList from database </h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Done?</th>
+        <th>Title</th>
+        <th>Urgent</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="todo : ${todos}">
+        <td th:text="${todo.getId()}"></td>
+        <td th:text="${todo.isDone()}"></td>
+        <td th:text="${todo.getTitle()}"></td>
+        <td th:text="${todo.isUrgent()}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
