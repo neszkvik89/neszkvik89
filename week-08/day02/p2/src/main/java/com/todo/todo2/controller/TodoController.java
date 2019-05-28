@@ -47,6 +47,20 @@ public class TodoController {
     return "todolist";
   }
 
+  @GetMapping(value = "/{id}/edit")
+  public String edit (@PathVariable ("id") long id, Model model) {
+    model.addAttribute("todo", iTodoRepository.findById(id).orElseGet(null));
+    return "edit";
+  }
+
+  @PostMapping(value = "/{id}/edit")
+  public String editFields(@RequestParam (name = "todo", required = false) String todo,
+                           @RequestParam (name = "urgent", required = false) boolean urgent,
+                           @RequestParam (name = "done", required = false) boolean done,
+                           @PathVariable ("id") long id, Model model){
+    iTodoRepository.findById(id).orElseGet(null).setTitle(todo);
+  }
+
   @GetMapping(value = {"/", "/list", "/todo"})
   public String list (@RequestParam(name = "isActive", required = false) boolean isActive, Model model) {
     List<Todo> myTodos = new ArrayList<>();

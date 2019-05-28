@@ -34,6 +34,7 @@
         <td th:text="${todo.getTitle()}"></td>
         <td th:text="${todo.isUrgent()}"></td>
         <td > <a th:href="'http://localhost:8080/' + ${todo.getId()} + '/delete'"> Delete </a></td>
+        <td > <a th:href="'http://localhost:8080/' + ${todo.getId()} + '/edit'"> Edit </a></td>
     </tr>
     </tbody>
 </table>
