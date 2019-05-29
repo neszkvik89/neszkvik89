@@ -55,10 +55,23 @@ public class TodoController {
 
   @PostMapping(value = "/{id}/edit")
   public String editFields(@RequestParam (name = "todo", required = false) String todo,
-                           @RequestParam (name = "urgent", required = false) boolean urgent,
-                           @RequestParam (name = "done", required = false) boolean done,
+                           @RequestParam (name = "urgent", required = false) String urgent,
+                           @RequestParam (name = "done", required = false) String done,
                            @PathVariable ("id") long id, Model model){
-    iTodoRepository.findById(id).orElseGet(null).setTitle(todo);
+
+    Todo myTodo = new Todo();
+    myTodo.setTitle(todo);
+    myTodo.setId(id);
+
+    if ((urgent != null) && urgent.equals("urgent")) {
+      myTodo.setUrgent(true);
+    }
+    if (done != null && done.equals("done")) {
+      myTodo.setDone(true);
+    }
+    iTodoRepository.save(myTodo);
+    model.addAttribute("todos", iTodoRepository.findAll());
+    return "todolist";
   }
 
   @GetMapping(value = {"/", "/list", "/todo"})
@@ -75,6 +88,7 @@ public class TodoController {
       );
       model.addAttribute("todos", myTodos);
     }
+    model.addAttribute("todos", iTodoRepository.findAll());
     return "todolist";
   }
 

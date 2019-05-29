@@ -4,6 +4,7 @@
     <title>Thymeleaf Exercise #</title>
     <link rel="stylesheet" th:href="@{/static/style.css}" />
     <meta charset="utf-8" />
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
     <style>
         table {
             border-collapse: collapse;
@@ -15,11 +16,12 @@
     </style>
 </head>
 <body>
-<a href="http://localhost:8080/todo/add"> Add new TODO item to the list </a> <br>
-
+<a href="http://localhost:8080/todo/add" class="badge badge-primary, mt-3, "> Add new TODO item to the list </a> <br>
+<br>
 <h1> Updated todoList from database </h1>
-<table>
-    <thead>
+<br>
+<table class="table table-hover table-striped">
+    <thead class="thead-light">
     <tr>
         <th>ID</th>
         <th>Done?</th>
@@ -33,12 +35,13 @@
         <td th:text="${todo.isDone()}"></td>
         <td th:text="${todo.getTitle()}"></td>
         <td th:text="${todo.isUrgent()}"></td>
-        <td > <a th:href="'http://localhost:8080/' + ${todo.getId()} + '/delete'"> Delete </a></td>
-        <td > <a th:href="'http://localhost:8080/' + ${todo.getId()} + '/edit'"> Edit </a></td>
+        <td > <a th:href="'http://localhost:8080/' + ${todo.getId()} + '/delete'" class="badge badge-danger"> Delete </a></td>
+        <td > <a th:href="'http://localhost:8080/' + ${todo.getId()} + '/edit'" class="badge badge-primary"> Edit </a></td>
     </tr>
     </tbody>
 </table>
 
-
+<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
