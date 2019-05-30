@@ -27,7 +27,7 @@ public class TodoController {
   }
 
   @GetMapping("/todo/add")
-  public String add (){
+  public String add() {
     return "add";
   }
 
@@ -39,7 +39,7 @@ public class TodoController {
   }
 
   @GetMapping(value = "/{id}/delete")
-  public String delete (@PathVariable ("id") long id, Model model) {
+  public String delete(@PathVariable("id") long id, Model model) {
     if (id != 0) {
       iTodoRepository.deleteById(id);
       model.addAttribute("todos", iTodoRepository.findAll());
@@ -48,16 +48,22 @@ public class TodoController {
   }
 
   @GetMapping(value = "/{id}/edit")
-  public String edit (@PathVariable ("id") long id, Model model) {
+  public String edit(@PathVariable("id") long id, Model model) {
     model.addAttribute("todo", iTodoRepository.findById(id).orElseGet(null));
     return "edit";
   }
 
+  @PostMapping(value = "/search")
+  public String search(Model model, String text) {
+    model.addAttribute("todos", todoService.searchResult(text));
+    return "todolist";
+  }
+
   @PostMapping(value = "/{id}/edit")
-  public String editFields(@RequestParam (name = "todo", required = false) String todo,
-                           @RequestParam (name = "urgent", required = false) String urgent,
-                           @RequestParam (name = "done", required = false) String done,
-                           @PathVariable ("id") long id, Model model){
+  public String editFields(@RequestParam(name = "todo", required = false) String todo,
+                           @RequestParam(name = "urgent", required = false) String urgent,
+                           @RequestParam(name = "done", required = false) String done,
+                           @PathVariable("id") long id, Model model) {
 
     Todo myTodo = new Todo();
     myTodo.setTitle(todo);
@@ -75,16 +81,17 @@ public class TodoController {
   }
 
   @GetMapping(value = {"/", "/list", "/todo"})
-  public String list (@RequestParam(name = "isActive", required = false) boolean isActive, Model model) {
+  public String list(@RequestParam(name = "isActive", required = false) boolean isActive, Model model) {
     List<Todo> myTodos = new ArrayList<>();
 
     if (!isActive) {
       model.addAttribute("todos", iTodoRepository.findAll());
     } else {
-      iTodoRepository.findAll().forEach(todo -> {if(!todo.isDone()) {
-        myTodos.add(todo);
-      }
-      }
+      iTodoRepository.findAll().forEach(todo -> {
+                if (!todo.isDone()) {
+                  myTodos.add(todo);
+                }
+              }
       );
       model.addAttribute("todos", myTodos);
     }

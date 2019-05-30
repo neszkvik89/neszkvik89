@@ -18,6 +18,15 @@
 <body>
 <a href="http://localhost:8080/todo/add" class="badge badge-primary, mt-3, "> Add new TODO item to the list </a> <br>
 <br>
+
+<form th:action="@{/search}" th:method="post">
+    <input type="text"
+           id="text"
+           name="text"
+           placeholder=" Title/content you are looking for "
+           required>
+    <button type="submit"> Search for this </button>
+</form> <br>
 <h1> Updated todoList from database </h1>
 <br>
 <table class="table table-hover table-striped">
