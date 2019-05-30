@@ -37,14 +37,16 @@
         <th>Done?</th>
         <th>Title</th>
         <th>Urgent</th>
+        <th>Assignee</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="todo : ${todos}">
+    <tr th:each="todo: ${todos}">
         <td th:text="${todo.getId()}"></td>
         <td th:text="${todo.isDone()}"></td>
         <td th:text="${todo.getTitle()}"></td>
         <td th:text="${todo.isUrgent()}"></td>
+        <td th:text="${todo.getTodoAssignee()}"></td>
         <td > <a th:href="'http://localhost:8080/' + ${todo.getId()} + '/delete'" class="badge badge-danger"> Delete </a></td>
         <td > <a th:href="'http://localhost:8080/' + ${todo.getId()} + '/edit'" class="badge badge-primary"> Edit </a></td>
     </tr>

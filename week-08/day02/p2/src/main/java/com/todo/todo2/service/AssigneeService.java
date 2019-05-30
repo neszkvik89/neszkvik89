@@ -15,8 +15,8 @@ public class AssigneeService {
     this.todoService = todoService;
     this.iTodoRepository = iTodoRepository;
     this.iAssigneeRepository = iAssigneeRepository;
-    iAssigneeRepository.save(new Assignee(1, "Nagy Marcsi", "nagymarcsi@gmail.com"));
+    /*iAssigneeRepository.save(new Assignee(1, "Nagy Marcsi", "nagymarcsi@gmail.com"));
     iAssigneeRepository.save(new Assignee(1, "Béla bá", "belaba@freemail.hu"));
-    iAssigneeRepository.save(new Assignee(1, "Sanyi a béka", "bekavagyok@gmail.com"));
+    iAssigneeRepository.save(new Assignee(1, "Sanyi a béka", "bekavagyok@gmail.com"));*/
   }
 }

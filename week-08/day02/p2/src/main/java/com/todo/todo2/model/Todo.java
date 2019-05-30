@@ -13,6 +13,7 @@ public class Todo {
   private long id;
   private String title;
   private String content;
+  private String todoAssignee = "Not yet assigned";
   private boolean urgent = false;
   private boolean done = false;
 
@@ -30,6 +31,14 @@ public class Todo {
 
   public Todo(String title) {
     this.title = title;
+  }
+
+  public String getTodoAssignee() {
+    return todoAssignee;
+  }
+
+  public void setTodoAssignee(String todoAssignee) {
+    this.todoAssignee = todoAssignee;
   }
 
   public String getContent() {

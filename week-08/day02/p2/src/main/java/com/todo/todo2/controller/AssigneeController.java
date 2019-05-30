@@ -1,5 +1,6 @@
 package com.todo.todo2.controller;
 import com.todo.todo2.model.Assignee;
+import com.todo.todo2.model.Todo;
 import com.todo.todo2.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,11 +47,22 @@ public class AssigneeController {
     return "assigneelist";
   }
 
-  
+
   @PostMapping (value = "/newAssignee")
   public String addAssignee(String newName, String email, Model model) {
     iAssigneeRepository.save(new Assignee(newName, email));
     model.addAttribute("assignees", iAssigneeRepository.findAll());
     return "assigneelist";
+  }
+
+  @PostMapping(value = "/{id}/assign")
+  public String edit(@PathVariable("id") long id, long assId, Model model) {
+    Todo myTodo;
+    myTodo = iTodoRepository.findById(id).orElseGet(null);
+    myTodo.setTodoAssignee(iAssigneeRepository.findById(assId).orElseGet(null).getName());
+    iTodoRepository.save(myTodo);
+    model.addAttribute("todos", iTodoRepository.findAll());
+    model.addAttribute("assignees", iAssigneeRepository.findAll());
+    return "todolist";
   }
 }

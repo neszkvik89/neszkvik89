@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +17,13 @@ public class TodoController {
 
   private com.todo.todo2.repository.iTodoRepository iTodoRepository;
   private TodoService todoService;
+  private com.todo.todo2.repository.iAssigneeRepository iAssigneeRepository;
 
   @Autowired
-  public TodoController(com.todo.todo2.repository.iTodoRepository iTodoRepository, TodoService iToDoService) {
+  public TodoController(com.todo.todo2.repository.iTodoRepository iTodoRepository,
+                        com.todo.todo2.repository.iAssigneeRepository iAssigneeRepository, TodoService iToDoService) {
     this.iTodoRepository = iTodoRepository;
+    this.iAssigneeRepository = iAssigneeRepository;
     this.todoService = iToDoService;
   }
 
@@ -49,6 +51,7 @@ public class TodoController {
   @GetMapping(value = "/{id}/edit")
   public String edit(@PathVariable("id") long id, Model model) {
     model.addAttribute("todo", iTodoRepository.findById(id).orElseGet(null));
+    model.addAttribute("assignees",iAssigneeRepository.findAll());
     return "edit";
   }
 
