@@ -1,9 +1,6 @@
 package com.todo.todo2.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Todo {
@@ -17,6 +14,9 @@ public class Todo {
   private boolean urgent = false;
   private boolean done = false;
 
+  @ManyToOne (fetch = FetchType.EAGER)
+  @JoinColumn(name = "assignee_id")
+  private Assignee assignee;
 
   public Todo() {
   }

@@ -19,7 +19,7 @@ public class TodoService {
     iTodoRepository.save(new Todo(4, "Adót fizetni", "Könyvelővel varázsolni",true, false));
   }
 
-  public List<Todo> searchResult (String text) {
+  public List<Todo> scanTodoList(String text) {
     return iTodoRepository.findByTitleContainingOrContentContaining(text, text);
   }
 }

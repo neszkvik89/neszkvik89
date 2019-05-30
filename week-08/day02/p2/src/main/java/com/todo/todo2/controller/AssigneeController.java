@@ -61,8 +61,19 @@ public class AssigneeController {
     myTodo = iTodoRepository.findById(id).orElseGet(null);
     myTodo.setTodoAssignee(iAssigneeRepository.findById(assId).orElseGet(null).getName());
     iTodoRepository.save(myTodo);
+
+    Assignee myAssignee;
+    myAssignee = iAssigneeRepository.findById(assId).orElseGet(null);
+    myAssignee.getTodos().add(myTodo);
+    iAssigneeRepository.save(myAssignee);
     model.addAttribute("todos", iTodoRepository.findAll());
     model.addAttribute("assignees", iAssigneeRepository.findAll());
     return "todolist";
+  }
+
+  @PostMapping(value = "/{id}/profile")
+  public String edit(@PathVariable("id") long id, Model model) {
+    model.addAttribute("todos", iAssigneeRepository.findById(id).orElseGet(null).getTodos());
+    return "profile";
   }
 }

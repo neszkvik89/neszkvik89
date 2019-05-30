@@ -48,6 +48,9 @@
         <td> <form th:action="'http://localhost:8080/' + ${assignee.getId()} + '/removeAssignee'" th:method="post">
             <button type="submit"> Remove </button>
         </form> </td>
+        <td> <form th:action="'http://localhost:8080/' + ${assignee.getId()} + '/profile'" th:method="post">
+            <button type="submit"> Remove </button>
+        </form> </td>
     </tr>
     </tbody>
 </table>

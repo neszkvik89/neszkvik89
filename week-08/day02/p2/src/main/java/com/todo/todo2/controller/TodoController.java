@@ -57,7 +57,7 @@ public class TodoController {
 
   @PostMapping(value = "/search")
   public String search(Model model, String text) {
-    model.addAttribute("todos", todoService.searchResult(text));
+    model.addAttribute("todos", todoService.scanTodoList(text));
     return "todolist";
   }
 

@@ -33,7 +33,7 @@
     <form th:action="'http://localhost:8080/' + ${todo.getId()} + '/assign'" th:method="post">
 
             <select id="assId" name="assId">
-                <option th:each="assignee : ${assignees}" th:value="${assignee.getId()}" th:text="${assignee.getId()}"></option>
+                <option th:each="assignee : ${assignees}" th:value="${assignee.getId()}" th:text="${assignee.getName()}"></option>
             </select>
 
         <button type="submit" class="btn btn-outline-warning btn-lg"> Assign for TODO </button> <br> <br>
