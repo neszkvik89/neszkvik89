@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf Exercise #</title>
+    <link rel="stylesheet" th:href="@{/static/style.css}" />
+    <meta charset="utf-8" />
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<a href="http://localhost:8080/todo/add" class="badge badge-primary, mt-3, "> Add new TODO item to the list </a> <br>
+<br>
+
+<table class="table table-hover table-striped">
+    <thead class="thead-light">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="assignee : ${assignees}">
+        <td th:text="${assignee.getId()}"></td>
+        <td th:text="${assignee.getName()}"></td>
+        <td th:text="${assignee.getEmail()}"></td>
+        <td> <form th:action="'http://localhost:8080/' + ${assignee.getId()} + '/' + ${assignee.getEmail()} +'/changeName'" th:method="post">
+            <input type="text"
+                   id="name"
+                   name="name"
+                   placeholder="New name"
+                   required>
+            <button type="submit"> Change name </button>
+        </form></td>
+        <td> <form th:action="'http://localhost:8080/' + ${assignee.getId()} + '/removeAssignee'" th:method="post">
+            <button type="submit"> Remove </button>
+        </form> </td>
+    </tr>
+    </tbody>
+</table>
+
+<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

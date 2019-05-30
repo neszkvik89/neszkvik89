@@ -1,7 +1,6 @@
 package com.todo.todo2.controller;
 
 import com.todo.todo2.model.Todo;
-import com.todo.todo2.repository.ITodoRepository;
 import com.todo.todo2.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,11 +16,11 @@ import java.util.List;
 @Controller
 public class TodoController {
 
-  private ITodoRepository iTodoRepository;
+  private com.todo.todo2.repository.iTodoRepository iTodoRepository;
   private TodoService todoService;
 
   @Autowired
-  public TodoController(ITodoRepository iTodoRepository, TodoService iToDoService) {
+  public TodoController(com.todo.todo2.repository.iTodoRepository iTodoRepository, TodoService iToDoService) {
     this.iTodoRepository = iTodoRepository;
     this.todoService = iToDoService;
   }

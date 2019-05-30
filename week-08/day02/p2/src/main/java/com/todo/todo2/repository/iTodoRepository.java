@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface ITodoRepository extends CrudRepository<Todo, Long> {
+public interface iTodoRepository extends CrudRepository<Todo, Long> {
 
   List<Todo> findByTitleContainingOrContentContaining(String title, String content);
 

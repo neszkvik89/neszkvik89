@@ -1,26 +1,15 @@
 package com.todo.todo2.service;
 
 import com.todo.todo2.model.Todo;
-import com.todo.todo2.repository.ITodoRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class TodoService {
-  private ITodoRepository iTodoRepository;
-  private List<Todo> todos;
+  private com.todo.todo2.repository.iTodoRepository iTodoRepository;
 
-  public List<Todo> getTodos() {
-    return todos;
-  }
-
-  public void setTodos(List<Todo> todos) {
-    this.todos = todos;
-  }
-
-  public TodoService(ITodoRepository iTodoRepository) {
+  public TodoService(com.todo.todo2.repository.iTodoRepository iTodoRepository) {
     this.iTodoRepository = iTodoRepository;
     iTodoRepository.save(new Todo(1, "Kovászolni", "Befőttes üvegben megbuggyantás", false, false));
     iTodoRepository.save(new Todo(2, "Kolbászt tölteni", "A saját belébe tölteni a húsát", false, true));
