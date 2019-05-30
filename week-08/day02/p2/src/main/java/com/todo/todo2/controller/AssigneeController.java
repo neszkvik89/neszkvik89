@@ -45,4 +45,12 @@ public class AssigneeController {
     model.addAttribute("assignees", iAssigneeRepository.findAll());
     return "assigneelist";
   }
+
+  
+  @PostMapping (value = "/newAssignee")
+  public String addAssignee(String newName, String email, Model model) {
+    iAssigneeRepository.save(new Assignee(newName, email));
+    model.addAttribute("assignees", iAssigneeRepository.findAll());
+    return "assigneelist";
+  }
 }

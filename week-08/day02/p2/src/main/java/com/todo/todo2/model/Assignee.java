@@ -21,6 +21,11 @@ public class Assignee {
     this.email = email;
   }
 
+  public Assignee(String name, String email) {
+    this.name = name;
+    this.email = email;
+  }
+
   public Assignee() {
   }
 

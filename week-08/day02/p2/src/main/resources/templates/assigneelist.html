@@ -10,6 +10,20 @@
 <a href="http://localhost:8080/todo/add" class="badge badge-primary, mt-3, "> Add new TODO item to the list </a> <br>
 <br>
 
+<form th:action="'http://localhost:8080/newAssignee'" th:method="post">
+    <input type="text"
+           id="newName"
+           name="newName"
+           placeholder="Name"
+           required>
+    <input type="text"
+           id="email"
+           name="email"
+           placeholder="Email"
+           required>
+    <button type="submit"> Add new assignee </button>
+</form> <br>
+
 <table class="table table-hover table-striped">
     <thead class="thead-light">
     <tr>
