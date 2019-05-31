@@ -21,8 +21,8 @@
     <tbody>
     <tr th:each="post : ${posts}">
         <td th:text="${post.getUpvotes()}"></td>
-        <td> + </td>
-        <td> - </td>
+        <td> <a th:href="'http://localhost:8080/upvote/' + ${post.getId()}" > + </a> </td>
+        <td> <a th:href="'http://localhost:8080/downvote/' + ${post.getId()}" > - </a> </td>
         <td> <a th:href="${post.getUrl()}" th:text="${post.getTitle()}"> </a></td>
          </tr>
     </tbody>
