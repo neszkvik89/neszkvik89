@@ -18,8 +18,9 @@ public class PostController {
     this.postService = postService;
   }
 
-  @GetMapping("/index")
+  @GetMapping("/")
   public String index (Model model) {
-    
+    model.addAttribute("posts", iPostRepository.findAll());
+    return "main";
   }
 }

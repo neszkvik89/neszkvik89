@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Post;
 import com.example.demo.repository.IPostRepository;
 import org.springframework.stereotype.Service;
 
