@@ -29,18 +29,14 @@ public class PostController {
 
   @GetMapping("/upvote/{id}")
   public String upvote(@PathVariable ("id") long id, Model model) {
-    Post myPost = iPostRepository.findById(id).orElseGet(null);
-    myPost.setUpvotes(myPost.getUpvotes() + 1);
-    iPostRepository.save(myPost);
+    postService.increaseScore(id);
     model.addAttribute("posts", iPostRepository.findAll());
     return "main";
   }
 
   @GetMapping("/downvote/{id}")
   public String downvote(@PathVariable ("id") long id, Model model) {
-    Post myPost = iPostRepository.findById(id).orElseGet(null);
-    myPost.setUpvotes(myPost.getUpvotes() - 1);
-    iPostRepository.save(myPost);
+    postService.decreaseScore(id);
     model.addAttribute("posts", iPostRepository.findAll());
     return "main";
   }

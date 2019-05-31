@@ -15,6 +15,14 @@ public class Post {
   private String title;
   private String url;
 
+  public void scorePlusOne () {
+    this.setUpvotes(this.getUpvotes() + 1);
+  }
+
+  public void scoreMinusOne () {
+    this.setUpvotes(this.getUpvotes() - 1);
+  }
+
   public Post() {
   }
 
