@@ -19,6 +19,7 @@
     </tr>
     </thead>
     <tbody>
+    <a th:href="'http://localhost:8080/commit/'" > New post </a> <br>
     <tr th:each="post : ${posts}">
         <td th:text="${post.getUpvotes()}"></td>
         <td> <a th:href="'http://localhost:8080/upvote/' + ${post.getId()}" > + </a> </td>

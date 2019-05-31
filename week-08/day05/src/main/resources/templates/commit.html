@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf Exercise #</title>
+    <link rel="stylesheet" th:href="@{/static/style.css}" />
+    <meta charset="utf-8" />
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+
+</head>
+<body>
+<h1> Submit new post </h1> <br> <br> <br>
+
+<form th:action="@{/commit}" th:method="post">
+    <input type="text"
+           id="title"
+           name="title"
+           placeholder=" Title of your post "
+           required>
+    <input type="text"
+           id="url"
+           name="url"
+           placeholder=" URL of your content "
+           required>
+    <button type="submit"> Post it! </button>
+</form>
+
+</tbody>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

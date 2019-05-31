@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class PostController {
@@ -40,6 +41,18 @@ public class PostController {
     Post myPost = iPostRepository.findById(id).orElseGet(null);
     myPost.setUpvotes(myPost.getUpvotes() - 1);
     iPostRepository.save(myPost);
+    model.addAttribute("posts", iPostRepository.findAll());
+    return "main";
+  }
+
+  @GetMapping("/commit")
+  public String commit() {
+    return "commit";
+  }
+
+  @PostMapping("/commit")
+  public String newCommit(Model model, String title, String url) {
+    iPostRepository.save(new Post(title, url));
     model.addAttribute("posts", iPostRepository.findAll());
     return "main";
   }
