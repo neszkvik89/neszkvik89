@@ -73,7 +73,8 @@ public class AssigneeController {
 
   @PostMapping(value = "/{id}/profile")
   public String edit(@PathVariable("id") long id, Model model) {
-    model.addAttribute("todos", iAssigneeRepository.findById(id).orElseGet(null).getTodos());
+    model.addAttribute("todos", iAssigneeRepository
+            .findById(id).orElseGet(null).getTodos());
     return "profile";
   }
 }

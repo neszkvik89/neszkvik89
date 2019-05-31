@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 public class Post {
@@ -14,6 +16,7 @@ public class Post {
   private int upvotes;
   private String title;
   private String url;
+  private String timeStamp;
 
   public void scorePlusOne () {
     this.setUpvotes(this.getUpvotes() + 1);
@@ -24,17 +27,37 @@ public class Post {
   }
 
   public Post() {
+    Date date= new Date();
+    long time = date.getTime();
+    Timestamp ts = new Timestamp(time);
+    this.timeStamp = String.valueOf(ts);
   }
 
   public Post(String title, String url) {
     this.title = title;
     this.url = url;
+    Date date= new Date();
+    long time = date.getTime();
+    Timestamp ts = new Timestamp(time);
+    this.timeStamp = String.valueOf(ts);
   }
 
   public Post(int upvotes, String title, String url) {
     this.upvotes = upvotes;
     this.title = title;
     this.url = url;
+    Date date= new Date();
+    long time = date.getTime();
+    Timestamp ts = new Timestamp(time);
+    this.timeStamp = String.valueOf(ts);
+  }
+
+  public String getTimeStamp() {
+    return timeStamp;
+  }
+
+  public void setTimeStamp(String timeStamp) {
+    this.timeStamp = timeStamp;
   }
 
   public long getId() {
