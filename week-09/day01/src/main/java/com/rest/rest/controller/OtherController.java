@@ -3,10 +3,8 @@ package com.rest.rest.controller;
 import com.rest.rest.model.*;
 import com.rest.rest.model.Error;
 import com.rest.rest.model.Number;
-import com.rest.rest.service.AppendService;
-import com.rest.rest.service.ArrayService;
-import com.rest.rest.service.ErrorService;
-import com.rest.rest.service.NumberService;
+import com.rest.rest.repository.ILogRepository;
+import com.rest.rest.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +15,18 @@ public class OtherController {
   private ErrorService errorService;
   private AppendService appendService;
   private ArrayService arrayService;
+  private LogService logService;
+  ILogRepository iLogRepository;
 
   @Autowired
-  public OtherController(NumberService numberService, ErrorService errorService, AppendService appendService, ArrayService arrayService) {
+  public OtherController(NumberService numberService, ErrorService errorService, AppendService appendService,
+                         ArrayService arrayService, LogService logService, ILogRepository iLogRepository) {
     this.numberService = numberService;
     this.errorService = errorService;
     this.appendService = appendService;
     this.arrayService = arrayService;
+    this.logService = logService;
+    this.iLogRepository = iLogRepository;
   }
 
 
@@ -41,6 +44,7 @@ public class OtherController {
                         @RequestParam(name = "title", required = false) String title) {
 
     if (name != null && title != null) {
+      iLogRepository.save(new Log("/greeter", "Name= " + name + "Title= " + title));
       return new Message(errorService.welcomeGenerator(name, title));
     } else if (name == null && title == null) {
       return new Error("Please provide a name and a title!");
@@ -53,6 +57,7 @@ public class OtherController {
 
   @GetMapping("/appenda/{appendable}")
   public Object appender (@PathVariable ("appendable") String appendable) {
+    iLogRepository.save(new Log("/appenda/{appendable}", "Appendable= " + appendable));
     return appendService.appendChar(appendable);
   }
 
