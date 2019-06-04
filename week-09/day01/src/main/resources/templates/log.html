@@ -8,7 +8,25 @@
 
 </head>
 <body>
+<table class="table table-hover table-striped">
+    <thead class="thead-light">
+    <tr>
+        <th>Id</th>
+        <th>Created at</th>
+        <th>Endpoint</th>
+        <th>Data</th>
 
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="log : ${logs}">
+        <td th:text="${log.getId()}"></td>
+        <td th:text="${log.getCreatedAt()}"></td>
+        <td th:text="${log.getEndpoint()}"></td>
+        <td th:text="${log.getData()}"></td>
+    </tr>
+    </tbody>
+</table>
 <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
 <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>

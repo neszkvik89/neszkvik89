@@ -16,17 +16,17 @@ public class OtherController {
   private AppendService appendService;
   private ArrayService arrayService;
   private LogService logService;
-  ILogRepository iLogRepository;
+  //ILogRepository iLogRepository;
 
   @Autowired
   public OtherController(NumberService numberService, ErrorService errorService, AppendService appendService,
-                         ArrayService arrayService, LogService logService, ILogRepository iLogRepository) {
+                         ArrayService arrayService, LogService logService) {
     this.numberService = numberService;
     this.errorService = errorService;
     this.appendService = appendService;
     this.arrayService = arrayService;
     this.logService = logService;
-    this.iLogRepository = iLogRepository;
+    //this.iLogRepository = iLogRepository;
   }
 
 
@@ -44,7 +44,7 @@ public class OtherController {
                         @RequestParam(name = "title", required = false) String title) {
 
     if (name != null && title != null) {
-      iLogRepository.save(new Log("/greeter", "Name= " + name + "Title= " + title));
+      //iLogRepository.save(new Log("/greeter", "Name= " + name + "Title= " + title));
       return new Message(errorService.welcomeGenerator(name, title));
     } else if (name == null && title == null) {
       return new Error("Please provide a name and a title!");
@@ -57,7 +57,7 @@ public class OtherController {
 
   @GetMapping("/appenda/{appendable}")
   public Object appender (@PathVariable ("appendable") String appendable) {
-    iLogRepository.save(new Log("/appenda/{appendable}", "Appendable= " + appendable));
+    //iLogRepository.save(new Log("/appenda/{appendable}", "Appendable= " + appendable));
     return appendService.appendChar(appendable);
   }
 
@@ -65,6 +65,7 @@ public class OtherController {
   public Object doUntil (@PathVariable("action") String action,
                          @RequestBody Until until) {
     if (action != null && until != null) {
+      //iLogRepository.save(new Log("/dountil/{action}", "Action= " + action + "Until= " + until.getUntil()));
       return numberService.doAction(action, until.getUntil());
     } else {
      return new Error("Please provide a number!");
