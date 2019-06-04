@@ -35,13 +35,32 @@ public class OtherControllerTest {
   private LogService logService;
 
   @MockBean
-  NumberService numberService;
+  private NumberService numberService;
 
   @MockBean
-  ErrorService errorService;
+  private ErrorService errorService;
 
   @MockBean
-  AppendService appendService;
+  private AppendService appendService;
+
+  @Test
+  public void doUntil_withCorrectInputs () throws Exception {
+    mockMvc.perform(post("/dountil/{action}", "sum")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("{\"until\": \"5\"}"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(contentType));
+            /*.andExpect(jsonPath("$.result", is(15)));*/
+  }
+
+  @Test
+  public void greeter_withCorrectInputs () throws Exception {
+    mockMvc.perform(get("/greeter?name=Attila&title=doctor")
+            /*.param("name", "Attila")
+            .param ("title", "doctor")*/)
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.welcome_message", is("Oh, hi there Attila, my dear doctor!")));
+  }
 
   @Test
   public void greeter_missingAllInput () throws Exception {
@@ -49,4 +68,4 @@ public class OtherControllerTest {
               .andExpect(status().isOk())
               .andExpect(jsonPath("$.error", is("Please provide a name and a title!")));
     }
-  }
+}
