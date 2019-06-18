@@ -1,5 +1,6 @@
-package com.example.movie.controller.config;
+package com.example.movie.config;
 
+import com.example.movie.service.SecretService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

@@ -1,5 +1,6 @@
-package com.example.movie.controller.config;
+package com.example.movie.config;
 
+import com.example.movie.service.SecretService;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;

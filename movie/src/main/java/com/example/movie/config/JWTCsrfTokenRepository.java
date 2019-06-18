@@ -1,6 +1,6 @@
-package com.example.movie.controller.config;
-import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
+package com.example.movie.config;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.web.csrf.CsrfToken;
