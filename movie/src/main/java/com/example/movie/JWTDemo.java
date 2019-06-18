@@ -31,6 +31,7 @@ public class JWTDemo {
         .setIssuedAt(now)
         .setSubject(subject)
         .setIssuer(issuer)
+        .setExpiration(new Date(System.currentTimeMillis() + (1000*30)))
         .signWith(signatureAlgorithm, signingKey);
 
     //if it has been specified, let's add the expiration

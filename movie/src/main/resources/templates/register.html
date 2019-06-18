@@ -18,6 +18,9 @@
              name="userName"
              placeholder=" This will be your username "
              required>
+      <input type="hidden"
+             name="${_csrf.parameterName}"
+             value="${_csrf.token}"/>
       Username </label> <br>
 
     <label>
@@ -27,7 +30,6 @@
              placeholder=" This will be your password "
              required>
       Password </label> <br>
-
 
     <button type="submit" class="btn btn-outline-warning btn-lg"> Register </button> <br> <br>
   </form>
