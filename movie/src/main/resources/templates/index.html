@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Registration page #</title>
+  <title>Thymeleaf Exercise #</title>
   <link rel="stylesheet" th:href="@{/static/style.css}" />
   <meta charset="utf-8" />
   <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
-<h1> You logged in dummy. Maybe even have your token now? </h1>
+<div class="mx-auto" style="width: 800px;">
+  <h1> Successful login, please choose a button </h1> <br> <br>
+
+  <form th:action="'http://localhost:8080/repos/' + ${token}" th:method="post">
+    <button type="submit" class="btn btn-outline-warning btn-lg"> List all repos </button> <br> <br>
+  </form>
   <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
   <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </div>

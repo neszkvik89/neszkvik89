@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,16 +49,14 @@ public class RegController {
   }
 
   @PostMapping("login")
-  public String doLogin (String userName, String password) {
-    String myToken;
+  public String doLogin (String userName, String password, Model model) {
+    String myToken = "";
     if (iUserRepository.findByUserName(userName).getPassword().equals(password)) {
       myToken = JWTDemo.createJWT(String.valueOf(iUserRepository.findByUserName(userName).getId()),
           "FBI", userName);
       iAccProfileRepository.save(userAccountService.uaBuilder(JWTDemo.decodeJWT(myToken)));
-
-      System.out.println(myToken);
-      System.out.println(JWTDemo.decodeJWT(myToken));
     }
+    model.addAttribute("token", myToken);
     return "index";
   }
 
