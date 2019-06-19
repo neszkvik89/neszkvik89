@@ -10,12 +10,12 @@ import org.springframework.security.web.csrf.CsrfTokenRepository;
 @Configuration
 public class CSRFConfig {
 
-  @Autowired
-  SecretService secretService;
+    @Autowired
+    SecretService secretService;
 
-  @Bean
-  @ConditionalOnMissingBean
-  public CsrfTokenRepository jwtCsrfTokenRepository() {
-    return new JWTCsrfTokenRepository(secretService.getHS256SecretBytes());
-  }
+    @Bean
+    @ConditionalOnMissingBean
+    public CsrfTokenRepository jwtCsrfTokenRepository() {
+        return new JWTCsrfTokenRepository(secretService.getHS256SecretBytes());
+    }
 }

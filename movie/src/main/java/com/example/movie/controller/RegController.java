@@ -1,10 +1,10 @@
 package com.example.movie.controller;
 
-import com.example.movie.JWTDemo;
+
 import com.example.movie.config.JWTCsrfTokenRepository;
 import com.example.movie.model.UserProfile;
 import com.example.movie.repository.IUserRepository;
-import com.example.movie.service.SecretService;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,14 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RegController {
 
-  private SecretService secretService;
   private IUserRepository iUserRepository;
   private JWTCsrfTokenRepository jwtCsrfTokenRepository;
 
   @Autowired
-  public RegController(SecretService secretService,
-      IUserRepository iUserRepository) {
-    this.secretService = secretService;
+  public RegController(IUserRepository iUserRepository) {
     this.iUserRepository = iUserRepository;
   }
 
@@ -38,11 +35,16 @@ public class RegController {
   }
 
   @PostMapping("login")
-  public String doLogin (String userName, String password) {
+  public String doLogin (String userName, String password, HttpServletRequest req) {
     if (iUserRepository.findByUserName(userName).getPassword().equals(password)) {
-      JWTDemo.createJWT(String.valueOf(iUserRepository.findByUserName(userName).getId()), "FBI", userName, 1560868417046L);
+      
     }
     return "index";
   }
+
+  /*@GetMapping("/secret")
+  public String shareSecret(HttpServletRequest req) {
+    req.
+  }*/
 
 }
