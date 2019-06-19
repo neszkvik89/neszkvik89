@@ -3,14 +3,19 @@ package com.example.movie.controller;
 
 import com.example.movie.JWTDemo;
 import com.example.movie.config.JWTCsrfTokenRepository;
+import com.example.movie.model.AccProfile;
 import com.example.movie.model.UserProfile;
-import com.example.movie.repository.IUserAccountRepository;
+import com.example.movie.repository.IAccProfileRepository;
 import com.example.movie.repository.IUserRepository;
 import com.example.movie.service.UserAccountService;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
@@ -18,14 +23,14 @@ public class RegController {
 
   private IUserRepository iUserRepository;
   private JWTCsrfTokenRepository jwtCsrfTokenRepository;
-  private IUserAccountRepository iUserAccountRepository;
+  private IAccProfileRepository iAccProfileRepository;
   private UserAccountService userAccountService;
 
   @Autowired
   public RegController(IUserRepository iUserRepository,
-      IUserAccountRepository iUserAccountRepository, UserAccountService userAccountService) {
+      IAccProfileRepository iAccProfileRepository, UserAccountService userAccountService) {
     this.iUserRepository = iUserRepository;
-    this.iUserAccountRepository = iUserAccountRepository;
+    this.iAccProfileRepository = iAccProfileRepository;
     this.userAccountService = userAccountService;
   }
 
@@ -48,7 +53,7 @@ public class RegController {
     if (iUserRepository.findByUserName(userName).getPassword().equals(password)) {
       myToken = JWTDemo.createJWT(String.valueOf(iUserRepository.findByUserName(userName).getId()),
           "FBI", userName);
-      iUserAccountRepository.save(userAccountService.uaBuilder(JWTDemo.decodeJWT(myToken)));
+      iAccProfileRepository.save(userAccountService.uaBuilder(JWTDemo.decodeJWT(myToken)));
 
       System.out.println(myToken);
       System.out.println(JWTDemo.decodeJWT(myToken));
@@ -56,9 +61,15 @@ public class RegController {
     return "index";
   }
 
-  /*@PostMapping ("/secret")
+  @PostMapping ("/secret")
   public String shareSecret(@RequestBody AccProfile userAccount) {
-
-  }*/
+    Date date = new Date();
+    Timestamp ts= new Timestamp(date.getTime());
+    if (iAccProfileRepository.existsByJti(userAccount.getJti())) {
+      if (date.getTime() < iAccProfileRepository.findByJti(userAccount.getJti()).getExp().getTime()) {
+        return "valid";
+      }
+    } return "invalid";
+  }
 
 }
