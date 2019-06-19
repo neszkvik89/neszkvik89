@@ -26,6 +26,9 @@ public class JWTCsrfTokenRepository implements CsrfTokenRepository {
         this.secret = secret;
     }
 
+    public JWTCsrfTokenRepository() {
+    }
+
     @Override
     public CsrfToken generateToken(HttpServletRequest request) {
         String id = UUID.randomUUID()

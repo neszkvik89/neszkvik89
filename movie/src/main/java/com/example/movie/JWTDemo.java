@@ -14,7 +14,7 @@ public class JWTDemo {
   private static final String SECRET_KEY = "itisasecretiguessitisasecretiguessitisasecretiguess"
       + "itisasecretiguessitisasecretiguessitisasecretiguessitisasecretiguessitisasecretiguess";
 
-  public static String createJWT(String id, String issuer, String subject, long ttlMillis) {
+  public static String createJWT(String id, String issuer, String subject) {
 
     //The JWT signature algorithm we will be using to sign the token
     SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -33,13 +33,6 @@ public class JWTDemo {
         .setIssuer(issuer)
         .setExpiration(new Date(System.currentTimeMillis() + (1000*30)))
         .signWith(signatureAlgorithm, signingKey);
-
-    //if it has been specified, let's add the expiration
-    if (ttlMillis > 0) {
-      long expMillis = nowMillis + ttlMillis;
-      Date exp = new Date(expMillis);
-      builder.setExpiration(exp);
-    }
 
     //Builds the JWT and serializes it to a compact, URL-safe string
     return builder.compact();

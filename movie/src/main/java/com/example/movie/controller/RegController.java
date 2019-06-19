@@ -1,6 +1,7 @@
 package com.example.movie.controller;
 
 
+import com.example.movie.JWTDemo;
 import com.example.movie.config.JWTCsrfTokenRepository;
 import com.example.movie.model.UserProfile;
 import com.example.movie.repository.IUserRepository;
@@ -35,9 +36,12 @@ public class RegController {
   }
 
   @PostMapping("login")
-  public String doLogin (String userName, String password, HttpServletRequest req) {
+  public String doLogin (String userName, String password) {
+    String myToken;
     if (iUserRepository.findByUserName(userName).getPassword().equals(password)) {
-      
+      myToken = JWTDemo.createJWT(String.valueOf(iUserRepository.findByUserName(userName).getId()),
+          "FBI", userName);
+      System.out.println();
     }
     return "index";
   }

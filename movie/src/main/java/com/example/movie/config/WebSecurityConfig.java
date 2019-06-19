@@ -36,12 +36,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.addFilterAfter(new JwtCsrfValidatorFilter(), CsrfFilter.class)
             .csrf()
-            .csrfTokenRepository(jwtCsrfTokenRepository)
+            .disable();
+            /*.csrfTokenRepository(jwtCsrfTokenRepository)
             .ignoringAntMatchers(ignoreCsrfAntMatchers)
             .and()
             .authorizeRequests()
             .antMatchers("/**")
-            .permitAll();
+            .permitAll();*/
     }
 
     private class JwtCsrfValidatorFilter extends OncePerRequestFilter {
