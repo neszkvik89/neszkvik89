@@ -6,6 +6,7 @@ import com.example.movie.model.AccProfile;
 import com.example.movie.model.RepoDetail;
 import com.example.movie.repository.ITokenRepository;
 import com.example.movie.repository.IRepoDetailRepository;
+import com.example.movie.repository.IUserRepository;
 import io.jsonwebtoken.Claims;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,6 +31,12 @@ public class UserAccountService {
 
   @Autowired
   private UserAccountService userAccountService;
+
+  @Autowired
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+  @Autowired
+  private IUserRepository iUserRepository;
 
   public AccProfile uaBuilder(Claims myClaim) {
     String jti = myClaim.getId();
@@ -77,5 +85,17 @@ public class UserAccountService {
         return myRepos;
       }
       return myRepos;
+    }
+
+    public String loginAndSaveToken (String password, String userName) {
+      String myToken = "";
+
+      if (bCryptPasswordEncoder
+          .matches(password, iUserRepository.findByUserName(userName).getPassword())) {
+        myToken = JWTDemo.createJWT(String.valueOf(iUserRepository.findByUserName(userName).getId()),
+            "FBI", userName);
+        iTokenRepository.save(userAccountService.uaBuilder(JWTDemo.decodeJWT(myToken)));
+      }
+      return myToken;
     }
 }

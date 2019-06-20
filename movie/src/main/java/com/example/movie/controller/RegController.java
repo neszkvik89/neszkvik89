@@ -24,7 +24,6 @@ public class RegController {
 
 
   private IUserRepository iUserRepository;
-  private JWTCsrfTokenRepository jwtCsrfTokenRepository;
   private ITokenRepository iTokenRepository;
   private UserAccountService userAccountService;
   private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -46,7 +45,7 @@ public class RegController {
   }
 
   @PostMapping("/register")
-  public String doRegistration (String userName, String password) {
+  public String doRegistration(String userName, String password) {
     if (!iUserRepository.existsByUserName(userName)) {
       iUserRepository.save(new UserProfile(userName, bCryptPasswordEncoder.encode(password)));
     }
@@ -54,29 +53,8 @@ public class RegController {
   }
 
   @PostMapping("login")
-  public String doLogin (String userName, String password, Model model) {
-
-    String myToken = "";
-
-    if (bCryptPasswordEncoder.matches(password, iUserRepository.findByUserName(userName).getPassword())) {
-      myToken = JWTDemo.createJWT(String.valueOf(iUserRepository.findByUserName(userName).getId()),
-          "FBI", userName);
-      iTokenRepository.save(userAccountService.uaBuilder(JWTDemo.decodeJWT(myToken)));
-    }
-    model.addAttribute("token", myToken);
-    System.out.println(myToken);
+  public String doLogin(String userName, String password, Model model) {
+    model.addAttribute("token", userAccountService.loginAndSaveToken(password, userName));
     return "index";
   }
-
-  @PostMapping ("/secret")
-  public String shareSecret(@RequestBody AccProfile userAccount) {
-    Date date = new Date();
-    Timestamp ts= new Timestamp(date.getTime());
-    if (iTokenRepository.existsByJti(userAccount.getJti())) {
-      if (date.getTime() < iTokenRepository.findByJti(userAccount.getJti()).getExp().getTime()) {
-        return "valid";
-      }
-    } return "invalid";
-  }
-
 }
