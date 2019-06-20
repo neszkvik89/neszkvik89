@@ -11,9 +11,6 @@ import javax.xml.bind.DatatypeConverter;
 
 public class JWTHandler {
 
-  private static final String SECRET_KEY = "k7jfjsdja89fksalmcfiusah9jfslamf9sdjfasldfn389fj2udshjfansdu"
-      + "sdf89asjdf9asbdu9nfsa9ufnsad9f8uhaasnd9funbds9ufpn9ufabd9uffah";
-
   public static String createJWT(String id, String issuer, String subject) {
 
     SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;

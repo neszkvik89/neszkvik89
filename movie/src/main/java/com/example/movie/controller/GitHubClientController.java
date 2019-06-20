@@ -49,13 +49,6 @@ public class GitHubClientController {
 
   }
 
-
-
-  /*@PostMapping("/repos")
-  public Repository createRepo(@RequestBody Repository newRepo) throws IOException {
-    return githubService.createRepository(newRepo);
-  }*/
-
   @DeleteMapping("/repos/{owner}/{repo}")
   public DeletePayload deleteRepo(
       @PathVariable("owner") String owner,
