@@ -3,24 +3,19 @@ package com.example.movie.controller;
 import com.example.movie.GitHubService;
 import com.example.movie.JWTDemo;
 import com.example.movie.model.RepoDetail;
-import com.example.movie.repository.IAccProfileRepository;
+import com.example.movie.repository.ITokenRepository;
 import com.example.movie.repository.IRepoDetailRepository;
 import com.example.movie.service.UserAccountService;
-import java.util.ArrayList;
-import java.util.Arrays;
-import org.eclipse.egit.github.core.Repository;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.eclipse.egit.github.core.event.DeletePayload;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 public class GitHubClientController {
@@ -36,18 +31,26 @@ public class GitHubClientController {
   private UserAccountService userAccountService;
 
   @Autowired
-  private IAccProfileRepository iAccProfileRepository;
+  private ITokenRepository iTokenRepository;
 
 
   @PostMapping("/repos/{token}")
-  public Object getRepos(@PathVariable ("token") String token) throws IOException {
+  public List<RepoDetail> getRepos(@PathVariable ("token") String token) throws IOException {
 
-    System.out.println(userAccountService.showReposWithValidToken(iAccProfileRepository.
-        findByJti(JWTDemo.decodeJWT(token).getId())));
-    return userAccountService.showReposWithValidToken(iAccProfileRepository.
+    return userAccountService.showReposWithValidToken(iTokenRepository.
         findByJti(JWTDemo.decodeJWT(token).getId()));
 
   }
+
+  @PostMapping("/repos12/{token}")
+  public Object get12Repos(@PathVariable ("token") String token) throws IOException {
+
+    return userAccountService.show12ReposWithValidToken(iTokenRepository.
+        findByJti(JWTDemo.decodeJWT(token).getId()));
+
+  }
+
+
 
   /*@PostMapping("/repos")
   public Repository createRepo(@RequestBody Repository newRepo) throws IOException {
