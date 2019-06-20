@@ -23,11 +23,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 public class RegController {
 
+
   private IUserRepository iUserRepository;
   private JWTCsrfTokenRepository jwtCsrfTokenRepository;
   private IAccProfileRepository iAccProfileRepository;
   private UserAccountService userAccountService;
   private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
   @Autowired
   public RegController(IUserRepository iUserRepository,
@@ -54,16 +56,16 @@ public class RegController {
 
   @PostMapping("login")
   public String doLogin (String userName, String password, Model model) {
+
     String myToken = "";
-    if (bCryptPasswordEncoder.encode(iUserRepository.
-        findByUserName(userName).
-        getPassword()).
-        equals(password)) {
+
+    if (bCryptPasswordEncoder.matches(password, iUserRepository.findByUserName(userName).getPassword())) {
       myToken = JWTDemo.createJWT(String.valueOf(iUserRepository.findByUserName(userName).getId()),
           "FBI", userName);
       iAccProfileRepository.save(userAccountService.uaBuilder(JWTDemo.decodeJWT(myToken)));
     }
     model.addAttribute("token", myToken);
+    System.out.println(myToken);
     return "index";
   }
 

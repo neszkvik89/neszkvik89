@@ -1,8 +1,11 @@
 package com.example.movie.controller;
 
 import com.example.movie.GitHubService;
+import com.example.movie.JWTDemo;
 import com.example.movie.model.RepoDetail;
+import com.example.movie.repository.IAccProfileRepository;
 import com.example.movie.repository.IRepoDetailRepository;
+import com.example.movie.service.UserAccountService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.eclipse.egit.github.core.Repository;
@@ -29,19 +32,21 @@ public class GitHubClientController {
   @Autowired
   private IRepoDetailRepository iRepoDetailRepository;
 
-  @PostMapping("/repos")
-  public List<RepoDetail> getRepos(@PathVariable ("token") String token) throws IOException {
+  @Autowired
+  private UserAccountService userAccountService;
 
-    List<RepoDetail> myRepos = new ArrayList<>();
+  @Autowired
+  private IAccProfileRepository iAccProfileRepository;
 
-    githubService.getRepositories().
-        forEach(p -> iRepoDetailRepository.
-            save(new RepoDetail(p.getId(), p.getName())));
-    
 
-    iRepoDetailRepository.findAll().forEach(p -> myRepos.add(p));
+  @PostMapping("/repos/{token}")
+  public Object getRepos(@PathVariable ("token") String token) throws IOException {
 
-    return myRepos;
+    System.out.println(userAccountService.showReposWithValidToken(iAccProfileRepository.
+        findByJti(JWTDemo.decodeJWT(token).getId())));
+    return userAccountService.showReposWithValidToken(iAccProfileRepository.
+        findByJti(JWTDemo.decodeJWT(token).getId()));
+
   }
 
   /*@PostMapping("/repos")
