@@ -1,7 +1,7 @@
 package com.example.movie.service;
 
 import com.example.movie.GitHubService;
-import com.example.movie.JWTDemo;
+import com.example.movie.JWTHandler;
 import com.example.movie.model.AccProfile;
 import com.example.movie.model.RepoDetail;
 import com.example.movie.repository.ITokenRepository;
@@ -48,7 +48,7 @@ public class UserAccountService {
     return new AccProfile(jti, iat, sub, iss, exp);
   }
 
-  public List<RepoDetail> showReposWithValidToken(AccProfile userAccount) {
+  public List<RepoDetail> showAllReposWithValidToken(AccProfile userAccount) {
 
     List<RepoDetail> myRepos = new ArrayList<>();
     if (iTokenRepository.existsByJti(userAccount.getJti())) {
@@ -59,7 +59,6 @@ public class UserAccountService {
           gitHubService.getRepositories().
               forEach(p -> iRepoDetailRepository.
                   save(new RepoDetail(p.getId(), p.getName())));
-
           iRepoDetailRepository.findAll().forEach(p -> myRepos.add(p));
         } catch (IOException e) {
           e.printStackTrace();
@@ -71,31 +70,32 @@ public class UserAccountService {
     return myRepos;
   }
 
-  public List<RepoDetail> show12ReposWithValidToken (AccProfile userAccount) {
+  public List<RepoDetail> showIdStartsWith12ReposWithValidToken(AccProfile userAccount) {
     List<RepoDetail> myRepos = new ArrayList<>();
     if (iTokenRepository.existsByJti(userAccount.getJti())) {
       Date date = new Date();
       if (date.getTime() < iTokenRepository.findByJti(userAccount.getJti()).getExp()
           .getTime()) {
-        myRepos = userAccountService.showReposWithValidToken(userAccount)
+        myRepos = userAccountService.showAllReposWithValidToken(userAccount)
             .stream()
             .filter(p -> String.valueOf(p.getId()).startsWith("12"))
             .collect(Collectors.toList());
-        }
-        return myRepos;
       }
       return myRepos;
     }
+    return myRepos;
+  }
 
-    public String loginAndSaveToken (String password, String userName) {
-      String myToken = "";
+  public String loginAndSaveToken(String password, String userName) {
+    String myToken = "";
 
-      if (bCryptPasswordEncoder
-          .matches(password, iUserRepository.findByUserName(userName).getPassword())) {
-        myToken = JWTDemo.createJWT(String.valueOf(iUserRepository.findByUserName(userName).getId()),
-            "FBI", userName);
-        iTokenRepository.save(userAccountService.uaBuilder(JWTDemo.decodeJWT(myToken)));
-      }
-      return myToken;
+    if (bCryptPasswordEncoder
+        .matches(password, iUserRepository.findByUserName(userName).getPassword())) {
+      myToken = JWTHandler
+          .createJWT(String.valueOf(iUserRepository.findByUserName(userName).getId()),
+              "FBI", userName);
+      iTokenRepository.save(userAccountService.uaBuilder(JWTHandler.decodeJWT(myToken)));
     }
+    return myToken;
+  }
 }

@@ -1,13 +1,12 @@
 package com.example.movie.controller;
 
 import com.example.movie.GitHubService;
-import com.example.movie.JWTDemo;
+import com.example.movie.JWTHandler;
 import com.example.movie.model.RepoDetail;
 import com.example.movie.repository.ITokenRepository;
 import com.example.movie.repository.IRepoDetailRepository;
 import com.example.movie.service.UserAccountService;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.eclipse.egit.github.core.event.DeletePayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,16 +36,16 @@ public class GitHubClientController {
   @PostMapping("/repos/{token}")
   public List<RepoDetail> getRepos(@PathVariable ("token") String token) throws IOException {
 
-    return userAccountService.showReposWithValidToken(iTokenRepository.
-        findByJti(JWTDemo.decodeJWT(token).getId()));
+    return userAccountService.showAllReposWithValidToken(iTokenRepository.
+        findByJti(JWTHandler.decodeJWT(token).getId()));
 
   }
 
   @PostMapping("/repos12/{token}")
   public Object get12Repos(@PathVariable ("token") String token) throws IOException {
 
-    return userAccountService.show12ReposWithValidToken(iTokenRepository.
-        findByJti(JWTDemo.decodeJWT(token).getId()));
+    return userAccountService.showIdStartsWith12ReposWithValidToken(iTokenRepository.
+        findByJti(JWTHandler.decodeJWT(token).getId()));
 
   }
 

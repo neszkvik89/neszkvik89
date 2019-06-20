@@ -11,10 +11,13 @@ import javax.xml.bind.DatatypeConverter;
 
 public class JWTDemo {
 
-  private static final String SECRET_KEY = "itisasecretiguessitisasecretiguessitisasecretiguess"
-      + "itisasecretiguessitisasecretiguessitisasecretiguessitisasecretiguessitisasecretiguess";
+  private static final String SECRET_KEY = "k7jfjsdja89fksalmcfiusah9jfslamf9sdjfasldfn389fj2udshjfansdu"
+      + "sdf89asjdf9asbdu9nfsa9ufnsad9f8uhaasnd9funbds9ufpn9ufabd9uffah";
 
   public static String createJWT(String id, String issuer, String subject) {
+
+
+
 
     //The JWT signature algorithm we will be using to sign the token
     SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -40,10 +43,9 @@ public class JWTDemo {
 
   public static Claims decodeJWT(String jwt) {
     //This line will throw an exception if it is not a signed JWS (as expected)
-    Claims claims = Jwts.parser()
+    return Jwts.parser()
         .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
         .parseClaimsJws(jwt).getBody();
-    return claims;
   }
 
 }

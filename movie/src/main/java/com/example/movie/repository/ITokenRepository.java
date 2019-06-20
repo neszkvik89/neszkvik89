@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ITokenRepository extends CrudRepository<AccProfile, Long> {
 
-  public boolean existsByJti(String jti);
-  public AccProfile findByJti (String jti);
+  boolean existsByJti(String jti);
+  AccProfile findByJti (String jti);
 
 }

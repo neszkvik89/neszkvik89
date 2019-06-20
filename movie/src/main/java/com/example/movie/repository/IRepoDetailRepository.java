@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface IRepoDetailRepository extends CrudRepository<RepoDetail, Long> {
 
-  public RepoDetail findById(long id);
+  RepoDetail findById(long id);
 
 }
