@@ -22,6 +22,7 @@ import java.util.List;
 @RestController
 public class GitHubClientController {
 
+
   @Autowired
   private GitHubService githubService;
 
@@ -43,10 +44,10 @@ public class GitHubClientController {
     return myRepos;
   }
 
-  @PostMapping("/repos")
+  /*@PostMapping("/repos")
   public Repository createRepo(@RequestBody Repository newRepo) throws IOException {
     return githubService.createRepository(newRepo);
-  }
+  }*/
 
   @DeleteMapping("/repos/{owner}/{repo}")
   public DeletePayload deleteRepo(

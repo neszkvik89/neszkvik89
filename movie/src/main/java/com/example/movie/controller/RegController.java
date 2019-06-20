@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,13 +27,16 @@ public class RegController {
   private JWTCsrfTokenRepository jwtCsrfTokenRepository;
   private IAccProfileRepository iAccProfileRepository;
   private UserAccountService userAccountService;
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Autowired
   public RegController(IUserRepository iUserRepository,
-      IAccProfileRepository iAccProfileRepository, UserAccountService userAccountService) {
+      IAccProfileRepository iAccProfileRepository, UserAccountService userAccountService,
+      BCryptPasswordEncoder bCryptPasswordEncoder) {
     this.iUserRepository = iUserRepository;
     this.iAccProfileRepository = iAccProfileRepository;
     this.userAccountService = userAccountService;
+    this.bCryptPasswordEncoder = bCryptPasswordEncoder;
   }
 
   @GetMapping("/register")
@@ -43,7 +47,7 @@ public class RegController {
   @PostMapping("/register")
   public String doRegistration (String userName, String password) {
     if (!iUserRepository.existsByUserName(userName)) {
-      iUserRepository.save(new UserProfile(userName, password));
+      iUserRepository.save(new UserProfile(userName, bCryptPasswordEncoder.encode(password)));
     }
     return "login";
   }
@@ -51,7 +55,10 @@ public class RegController {
   @PostMapping("login")
   public String doLogin (String userName, String password, Model model) {
     String myToken = "";
-    if (iUserRepository.findByUserName(userName).getPassword().equals(password)) {
+    if (bCryptPasswordEncoder.encode(iUserRepository.
+        findByUserName(userName).
+        getPassword()).
+        equals(password)) {
       myToken = JWTDemo.createJWT(String.valueOf(iUserRepository.findByUserName(userName).getId()),
           "FBI", userName);
       iAccProfileRepository.save(userAccountService.uaBuilder(JWTDemo.decodeJWT(myToken)));
